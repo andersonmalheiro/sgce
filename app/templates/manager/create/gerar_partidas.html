@@ -1,0 +1,43 @@
+{% extends 'manager/base.html' %}
+
+{% block title %}Gerar partidas{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="row" style="padding: 3%;">
+  <div class="col-lg-12">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card">
+          <div class="card-header elegant-color-dark white-text">
+            <h1 class="h1-responsive">Partidas</h1>
+          </div>
+          <div class="card-body">
+            <table class="table">
+                <thead>
+                    <th>Partida</th>
+                    <th>Data</th>
+                </thead>
+                <tbody>                    
+                    {% for p in partidas %}
+                    <tr>
+                        <td>{{p}}</td>
+                        <td>{{p.data}}</td>
+                    </tr>                    
+                    {% endfor %}                                            
+                </tbody>
+            </table>            
+          </div>
+          <div class="card-footer">
+            <form method="post">
+                {% csrf_token %}              
+                <button type="submit" class="btn btn-elegant" onclick="$.LoadingOverlay('show');">Gerar</button>              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

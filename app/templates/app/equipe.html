@@ -1,0 +1,160 @@
+{% extends 'app/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    {{equipe.nome}}
+{% endblock %}
+
+{% block content%}
+<br><br>
+<div class="row">
+    <div class="col-xl-8 col-lg-8 mb-8">
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 mb-2">
+                
+                {% if  equipe.emblema %}                
+                <img src="{{equipe.emblema.url}}" alt="" style="height:15vh;" class="img-fluid">                                    
+                {% else %}
+                <div class="text-center" style="border: 2px solid #DDD; border-radius: 3px; padding:5px;">
+                    <span class="fa fa-shield fa-5x text-center"></span>
+                </div>
+                {% endif %}
+                                    
+            </div>
+            <div class="col-xl-10 col-lg-10 mb-10">
+                <h1 class="h1-responsive">{{equipe.nome}}</h1>
+                <h4 class="h4-responsive">{{tecnico.nome}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="row d-flex">
+    <div class="col-xl-8 col-lg-8 mb-8">
+        <div class="card">
+            <div class="card-header blue darken-4 white-text">
+                Elenco
+            </div>
+            {% if jogadores %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-center">                        
+                        <th class="text-center">Foto</th>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center">Apelido</th>
+                        <th class="text-center">Gols</th>
+                        <th class="text-center">Cartões Amarelos</th>
+                        <th class="text-center">Cartões Vermelhos</th>
+                        <th class="text-center">Status</th>
+                    </thead>
+                    <tbody>
+                        {% for jogador in jogadores %}
+                        <tr>                            
+                            {% if jogador.foto %}
+                            <td class="text-center"><img src="{{ jogador.foto.url }}" style="height: 3em;"></td>
+                            {% else %}
+                            <td class="text-center"><span class="fa fa-user fa-lg"></span></td>
+                            {% endif %}
+                            <td class="text-center">{{jogador}}</td>
+                            {% if jogador.apelido %}
+                            <td class="text-center">{{jogador.apelido}}</td>
+                            {% else %}
+                            <td class="text-center">- - -</td>
+                            {% endif %}
+                            <td class="text-center">{{jogador.total_gols}}</td>
+                            <td class="text-center">{{jogador.total_cartoes_amarelos}}</td>
+                            <td class="text-center">{{jogador.total_cartoes_vermelhos}}</td>
+                            {% if jogador.disponivel%}
+                            <td class="text-center"><span class="fa fa-check green-text"></span></td>
+                            {% else %}
+                            <td class="text-center"><span class="fa fa-close red-text"></span></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="card-body">
+                <p>Desculpe,ainda não há jogadores cadastrados nesse time. =(</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 mb-5">
+        <div class="card">
+            <div class="card-header text-center">
+                Partidas
+            </div>
+            {% if partida %}
+            <div class="table-responsive">
+                <table class="table">
+                    {% for p in partida %}
+                    <tr>
+                        <td class="text-center">
+                            {% if equipe.emblema %}
+                            <img src="{{p.mandante.emblema.url}}" style="height: 3vh;" class="emblema-table">
+                            {% else %}
+                            <span class="fa fa-shield fa-lg"></span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{p.gols_mandante}}</td>
+                        <td class="text-center"><strong>x</strong></td>
+                        <td class="text-center">{{p.gols_visitante}}</td>
+                        <td class="text-center">
+                            {% if equipe.emblema %}
+                            <img src="{{p.visitante.emblema.url}}" style="height: 3vh;" class="emblema-table">
+                            {% else %}
+                            <span class="fa fa-shield fa-lg"></span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center"><a href="{% url 'partida' pk=p.pk %}">Detalhes...</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+            <div class="card-body">
+                <p>Desculpe, ainda não há partidas para mostrar. =(</p>
+            </div>
+            {% endif %}
+        </div>
+        <!-- Paginação -->
+        
+        <div class="row justify-content-center">            
+            <nav class="my-4">                
+                <ul class="pagination pagination-circle pg-blue mb-0">                                    
+                    <!--Seta esquerda-->
+                    {% if partida.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" href="?page={{ partida.previous_page_number }}">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    <!--Páginas-->                    
+                    
+                    <li class="page-item active"><a class="page-link">{{ partida.number }}</a></li>
+                    
+            
+                    <!--Seta direita-->                    
+                    {% if partida.has_next %}                                                        
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" href="?page={{ partida.next_page_number }}">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Próximo</span>
+                        </a>
+                    </li>                    
+                    {% endif %}            
+                </ul>
+            </nav>
+          </div>        
+        <!--/Paginação -->
+    </div>
+</div>
+
+{% endblock content %}

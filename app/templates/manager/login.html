@@ -1,0 +1,28 @@
+{% extends 'manager/base.html' %}
+
+{% block title %}Login - SGCE Admin{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="row" style="padding: 3%;">
+  <div class="col-lg-12">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header elegant-color-dark white-text">
+            <h1 class="h1-responsive">Login</h1>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-elegant">Login</button>
+              <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    
+{% endblock %}

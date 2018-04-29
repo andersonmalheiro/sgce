@@ -1,0 +1,130 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block title %} Partida - {{partida.mandante}} X {{partida.visitante}}
+{% endblock %}
+{% block content%}
+<br>
+<br>
+<div class="row" style="padding: 3%;">
+    <div class="col-lg-12">
+        <div class="row mb-3">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header blue darken-4 white-text">
+                        <h1 class="h1-responsive text-center">
+                            Partida
+                        </h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-lg-8 text-center">
+                                <div class="row justify-content-center align-middle">
+                                    <div class="col-3">
+                                        <figure class="figure pull-left">
+                                            {% if partida.mandante.emblema %}
+                                            <img src="{{partida.mandante.emblema.url}}" style="height:10vh;" class="figure-img img-fluid">
+                                            {% else %}
+                                            <span class="fa fa-shield fa-5x"></span>
+                                            {% endif %}
+                                            <figcaption class="figure-caption text-center">{{partida.mandante}}</figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="col-6 mt-4">
+                                        <div class="h3-responsive">
+                                            {{partida.gols_mandante}} &nbsp X &nbsp {{partida.gols_visitante}}
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <figure class="figure pull-right">
+                                            {% if partida.visitante.emblema %}
+                                            <img src="{{partida.visitante.emblema.url}}" style="height:10vh;" class="figure-img img-fluid">
+                                            {% else %}
+                                            <span class="fa fa-shield fa-5x"></span>
+                                            {% endif %}
+                                            <figcaption class="figure-caption text-center">{{partida.visitante}}</figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if lances %}
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="h2-responsive text-center">Lances da partida</h2>
+    </div>
+</div>
+
+<section id="cd-timeline" class="cd-container">
+    {% for l in lances %}
+    <div class="cd-timeline-block">
+        {% if l.lance == 'G' %}
+        <div class="cd-timeline-img cd-gol">
+            <img src="{% static 'img/gol.svg' %}" alt="Picture">
+        </div>
+        <div class="cd-timeline-content">
+            <h3 class="h3-responsive">Gooool do {{l.equipe}} !</h3>
+            <p>{{l.jogador}}</p>
+            <p>{{l.descricao}}</p>
+            <span class="cd-date" style="font-size: 20px;">{{l.tempo}}° tempo | {{l.minuto}}"</span>
+        </div>
+        {% elif l.lance == 'CV' %}
+        <div class="cd-timeline-img cd-cv">
+            <img src="{% static 'img/c_vermelho.svg' %}" alt="Picture">
+        </div>
+        <div class="cd-timeline-content">
+            <h3 class="h3-responsive">C. Vermelho {{l.equipe}}</h3>
+            <p>{{l.jogador}}</p>
+            <p>{{l.descricao}}</p>
+            <span class="cd-date" style="font-size: 20px;">{{l.tempo}}° tempo | {{l.minuto}}"</span>
+        </div>
+        {% elif l.lance == 'CA' %}
+        <div class="cd-timeline-img cd-ca">
+            <img src="{% static 'img/c_amarelo.svg' %}" alt="Picture">
+        </div>
+        <div class="cd-timeline-content">
+            <h3 class="h3-responsive">C. Amarelo {{l.equipe}}</h3>
+            <p>{{l.jogador}}</p>
+            <p>{{l.descricao}}</p>
+            <span class="cd-date" style="font-size: 20px;">{{l.tempo}}° tempo | {{l.minuto}}"</span>
+        </div>
+        {% else %}
+        <div class="cd-timeline-img cd-gc">
+            <img src="{% static 'img/gol_contra.svg' %}" alt="Picture">
+        </div>
+        <div class="cd-timeline-content">
+            <h3 class="h3-responsive">Gol contra do {{l.equipe}}</h3>
+            <p>{{l.jogador}}</p>
+            <p>{{l.descricao}}</p>
+            <span class="cd-date" style="font-size: 20px;">{{l.tempo}}° tempo | {{l.minuto}}"</span>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</section>
+<!-- cd-timeline -->
+{% else %}
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="h2-responsive text-center">Ainda não há lances a mostrar.</h2>
+    </div>
+</div>
+{% endif %}
+{% if partida.finalizada %}
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="h2-responsive text-center">Fim de jogo.</h2>
+    </div>
+</div>
+{% endif %}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="{% static 'js/timeline-main.js' %}"></script>
+<!-- Resource jQuery -->
+
+{% endblock content %}

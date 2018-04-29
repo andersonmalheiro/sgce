@@ -1,0 +1,47 @@
+<div class="modal fade" id="modalLance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-info cascading-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header blue white-text">
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar lance <span class="fa fa-soccer-ball-o fa-lg white-text"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="form">
+                {% csrf_token %}
+                <div class="modal-body" id="#corpo">
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="lance" name="lance" required>
+                        <option value="" selected>Tipo de lance...</option>                                                                                        
+                        <option value="G">Gol</option>
+                        <option value="GC">Gol contra</option>
+                        <option value="CA">Cartão amarelo</option>
+                        <option value="CV">Cartão vermelho</option>                        
+                    </select>                            
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="jogador" name="jogador" required>
+                        <option value="" selected>Jogador...</option>
+                        {% for j in jogadores %}
+                        <option value="{{j.pk}}">{{j}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" id="partida" name="partida">
+                    <div class="md-form mt-2">
+                        <label for="desc">Descrição</label>
+                        <input type="text" name="desc" id="desc" required maxlength="200">
+                    </div>
+                    <div class="md-form">
+                        <label for="tempo">Tempo</label>
+                        <input type="number" name="tempo" id="tempo" required min="1" max="2" value="0">
+                    </div>
+                    <div class="md-form">
+                        <label for="minuto">Minutos</label>
+                        <input type="number" name="minuto" id="minuto" required min="0" max="120" value="0">
+                    </div>                  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary-modal waves-effect btn-sm" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary-modal btn-sm">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

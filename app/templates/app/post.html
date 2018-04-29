@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+SGCE - {{post.titulo}}
+{% endblock %}
+
+{% block content%}
+<br><br>
+<div class="row justify-content-center">
+
+        <div class="col-md-12">
+		    <h1 class="h1-responsive text-center">{{post.titulo}}</h1>
+            <br>
+	    </div>
+
+        <div class="col-md-10">
+		    <img src="{{post.imagem.url}}" width="100%">
+	    </div>
+
+        <div class="col-md-10">
+            <br>
+		    <p>{{ post.conteudo | safe }}</p>
+	    </div>
+
+</div>
+{% endblock content %}

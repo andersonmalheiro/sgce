@@ -1,0 +1,85 @@
+{% extends 'manager/base.html' %} {% block title %}Cadastrar Jogador{% endblock %} {% block content %}
+<br>
+<br>
+<div class="row" style="padding: 3%;">
+    <div class="col-lg-12">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h1 class="h1-responsive">
+                            Cadastrar Jogador
+                        </h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="md-form">
+                                <label for="nome">Nome</label>
+                                <input type="text" name="nome" id="nome" maxlength="50" required>
+                            </div>
+                            <div class="md-form">
+                                <label for="nome">Sobrenome</label>
+                                <input type="text" name="sobrenome" id="sobrenome" maxlength="50">
+                            </div>
+                            <div class="md-form">
+                                <label for="nome">Apelido</label>
+                                <input type="text" name="apelido" id="apelido" maxlength="50">
+                            </div>
+                            <div class="md-form">
+                                <label for="nome">Idade</label>
+                                <input type="number" name="idade" id="idade" min="0">
+                            </div>                            
+                            <div class="md-form">
+                                <label for="nome">Rua</label>
+                                <input type="text" name="rua" id="rua" maxlength="50" required min="0">
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="md-form">
+                                        <label for="bairro">Bairro</label>
+                                        <input type="text" name="bairro" id="bairro" maxlength="50" required min="0">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <label for="cidade">Cidade</label>
+                                        <input type="text" name="cidade" id="cidade" maxlength="50" required min="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="btn btn-blue btn-sm">
+                                Foto &nbsp
+                                <span class="fa fa-user"></span>
+                                <input type="file" name="foto" class="mb-3" style="display:none;">
+                            </label><br>
+                            
+                            {% if form.errors %}
+                            <label class="red-text">
+                                <span class="fa fa-warning"></span>
+                                Envie uma imagem válida. O arquivo enviado não era uma imagem ou estava corrompido.
+                            </label>
+                            {% endif %}
+
+                            <label for="equipe"><strong>Equipe</strong></label><br>
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0 mb-3" id="equipe" name="equipe" required>
+                                <option value="">Selecione a equipe...</option>
+                                {% for e in equipes %}
+                                <option value="{{e.pk}}">{{e}}</option>
+                                {% endfor %}                                                                                                    
+                            </select>
+
+                            <input type="hidden" name="campeonato" value="{{champ}}">
+
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn btn-elegant">Cadastrar</button>
+                            </div>                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

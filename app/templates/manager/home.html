@@ -1,0 +1,61 @@
+{% extends 'manager/base.html' %}
+
+{% block title %}
+    Home - SGCE Admin
+{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row justify-content-center">
+                <div class="col-lg-8 mt-3 mb-3">
+                    <div class="card">
+                        <div class="card-header elegant-color-dark white-text">
+                            <h2 class="h2-responsive">Campeonatos
+                                <span class="fa fa-trophy pull-right fa-lg"></span>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <p>Gerenciar campeonatos</p>                        
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'champ_list' %}" class="pull-right black-text">Listar
+                                <span class="fa fa-list"></span>
+                            </a>
+                            <a href="{% url 'champ_create' %}" class="pull-right black-text mr-5">Criar
+                                <span class="fa fa-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header elegant-color-dark white-text">
+                            <h2 class="h2-responsive">Posts
+                                <span class="fa fa-newspaper-o pull-right fa-lg"></span>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <p>Gerenciar posts</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/manager/post/listar/" class="pull-right black-text">
+                                Listar
+                                <span class="fa fa-list"></span>
+                            </a>
+                            <a href="/manager/post/criar/" class="pull-right black-text mr-5">
+                                Criar
+                                <span class="fa fa-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

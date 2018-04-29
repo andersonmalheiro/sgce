@@ -1,0 +1,36 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header blue white-text">
+                <h5 class="modal-title" id="exampleModalLabel">Atualizar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post">
+                <div class="modal-body">
+                    <div class="md-form">
+                        <label for="gols">Gols</label>
+                        <input type="number" name="gols" id="gols" required>
+                    </div>
+                    <div class="md-form">
+                        <label for="c_amarelo">Cartões amarelos</label>
+                        <input type="number" name="c_amarelo" id="c_amarelo" required>
+                    </div>
+                    <div class="md-form">
+                        <label for="c_vermelho">Cartões vermelhos</label>
+                        <input type="number" name="c_vermelho" id="c_vermelho" required>
+                    </div>
+                    <input type="hidden" name="jogador" value="{{id}}">
+                    <input type="hidden" name="partida" value="{{p}}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" type="submit" class="btn btn-success">Salvar mundanças</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+                  

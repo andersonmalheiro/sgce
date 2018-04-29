@@ -1,0 +1,21 @@
+{% extends 'manager/base.html' %}
+
+{% block title %}
+Confirmar remoção
+{% endblock title %}
+
+{% block content %}
+<br><br>
+<div class="row" style="height: 65vh;">
+    <div class="col-md-12">
+        <form method="post">{% csrf_token %}
+            <h4>Tem certeza que deseja excluir o campeonato "{{ champ }}"?</h4>
+            <br/>
+            <button type="submit" class="btn btn-elegant">
+                Remover
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

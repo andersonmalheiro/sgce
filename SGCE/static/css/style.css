@@ -1,0 +1,94 @@
+/* YOUR CUSTOM STYLES */
+/* TEMPLATE STYLES */
+
+main {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+}
+
+.widget-wrapper {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.extra-margins {
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.divider-new {
+    margin-top: 0;
+}
+
+.navbar {
+    background-color: #414a5c;
+}
+
+footer.page-footer {
+    background-color: #414a5c;
+    margin-top: 2rem;
+}
+
+.list-group-item.active {
+    background-color: #2bbbad;
+    border-color: #2bbbad
+}
+
+.list-group-item:not(.active) {
+    color: #222;
+}
+
+.list-group-item:not(.active):hover {
+    color: #666;
+}
+.card {
+    font-weight: 300;
+}
+.navbar .btn-group .dropdown-menu a:hover {
+    color: #000 !important;
+}
+.navbar .btn-group .dropdown-menu a:active {
+    color: #fff !important;
+}
+
+.emblema{    
+    height:7em;    
+    border: 2px solid #DDD;
+    border-radius: 3px;
+    padding:5px
+}
+
+.emblema-table{
+    height: 20px;
+    width: 20px;
+}
+
+.card-body-icon {
+    position: absolute;
+    z-index: 0;
+    top: -25px;
+    right: -25px;
+    font-size: 5rem;
+    -webkit-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+}
+
+.o-hidden {
+    overflow: hidden !important;
+}
+
+.position {
+    counter-reset: 1;
+}
+
+.position tr {
+    counter-increment: rowNumber;
+}
+
+.position tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-left: 1em;
+}

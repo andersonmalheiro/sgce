@@ -1,0 +1,52 @@
+{% extends 'manager/base.html' %}
+
+{% block title %}Lista de Campeonatos{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="row mt-4">
+  <div class="col-lg-12">
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header elegant-color-dark white-text">
+            <h1 class="h1-responsive">Campeonatos</h1>
+          </div>
+          <div class="card-body">
+            <a href="{% url 'champ_create'%}" class="pull-left black-text mr-5 btn btn-blue btn-sm">
+                Adicionar
+                <span class="fa fa-plus fa-lg white-text"></span>
+            </a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <th class="text-center">Campeonato</th>
+                        <th class="text-center">Opções</th>
+                    </thead>
+                    <tbody>
+                        {% for champ in champs %}
+                        <tr>
+                            <td class="text-center">{{champ}}</td>
+                            <td class="text-center">
+                                <a href="{% url 'champ_remove' pk=champ.pk %}" class="mr-2 mt-1">
+                                    <span class="fa fa-trash fa-lg red-text"></span>
+                                </a>                                
+                                <a href="{% url 'champ_edit' pk=champ.pk %}" class="mr-1 mt-1">
+                                    <span class="fa fa-pencil fa-lg blue-text"></span>
+                                </a>                                
+                                <a href="{% url 'manage_campeonato' pk=champ.pk %}" class="mt-1">
+                                    <span class="fa fa-cogs fa-lg"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'manager/base.html' %}
+{% load staticfiles %}
+{% block title %}
+SGCE Admin - Gerenciar Campeonatos
+{% endblock%}
+{% block content %}
+<br>
+<div class="row" style="padding: 3%;">        
+    <div class="col-lg-12">        
+        <h1 class="h1-responsive text-center mb-4">{{champ}}</h1>
+        <div class="row">            
+            <div class="col-lg-6 mb-3">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h3 class="h3-responsive">                            
+                            {% if formato != 'PC' %}
+                            {{groups|length}} Grupos
+                            {% else %}
+                            Grupos
+                            {% endif %}                                                            
+                            <span class="fa fa-list-ol fa-2x pull-right"></span>
+                        </h3>
+                    </div>
+                    
+                    <div class="card-footer">
+                        {% if formato == 'PC' %}
+                            Não é possível cadastrar mais grupos
+                        {% elif champ.qtd_grupos > groups|length %}                        
+                        <a href="{% url 'list_grupo' pk=champ.pk %}" class="pull-right black-text">
+                                Listar
+                                <span class="fa fa-list"></span>
+                            </a>                            
+                        <a href="{% url 'create_grupo' pk=champ.pk %}" class="pull-right black-text mr-5">
+                                Criar
+                                <span class="fa fa-plus"></span>
+                            </a>                            
+                        {% elif champ.qtd_grupos <= groups|length  %}
+                            Não é possível cadastrar mais grupos
+                            <a href="{% url 'list_grupo' pk=champ.pk %}" class="pull-right black-text">
+                                Listar
+                                <span class="fa fa-list"></span>
+                            </a>                        
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h3 class="h3-responsive">
+                            {{teams|length}} Equipes
+                            <img class="pull-right" src="{% static 'img/equipe.svg' %}" style="height:2em;">
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'list_equipe' pk=champ.pk %}" class="pull-right black-text">
+                            Listar
+                            <span class="fa fa-list"></span>
+                        </a>                        
+                        {% if teams|length < champ.qtd_times %}
+                        <a href="{% url 'create_equipe' pk=champ.pk %}" class="pull-right black-text mr-5">
+                            Criar
+                            <span class="fa fa-plus"></span>
+                        </a>
+                        {% else %}
+                        Campeonato completo
+                        {% endif %}                                                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h3 class="h3-responsive">
+                            {{players|length}} Jogadores
+                            <img class="pull-right" src="{% static 'img/camisa.svg' %}" style="height:2em;">
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'list_jogador' pk=champ.pk %}" class="pull-right black-text">
+                            Listar
+                            <span class="fa fa-list"></span>
+                        </a>
+                        <a href="{% url 'create_jogador' pk=champ.pk %}" class="pull-right black-text mr-5">
+                            Criar
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h3 class="h3-responsive">
+                            {{partidas}} Partidas
+                            <img class="pull-right" src="{% static 'img/campo.svg' %}" style="height:2em;">
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'list_partida' pk=champ.pk %}" class="pull-right black-text">
+                            Listar
+                            <span class="fa fa-list"></span>
+                        </a>
+                        <a href="{% url 'add_partida' pk=champ.pk %}" class="pull-right black-text mr-5">
+                            Criar
+                            <span class="fa fa-plus"></span>
+                        </a>
+                        <a href="{% url 'gerar_partidas' pk=champ.pk %}" class="pull-right black-text mr-5">
+                            Gerar
+                            <span class="fa fa-cogs"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}'

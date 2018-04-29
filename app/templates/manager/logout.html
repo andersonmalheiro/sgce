@@ -1,0 +1,17 @@
+{% extends 'manager/base.html' %}
+
+{% block title %}Encerrar sessão - SGCE Admin{% endblock %}
+
+{% block content %}
+<br><br>
+<div style="height: 65vh">
+    <div class="flex-center flex-column">
+        <h1 class="h1-responsive mb-2">SGCE Admin</h1>
+
+        <h5 class="h5-responsive mb-1 text-center">Obrigado por nos visitar. Volte sempre.</h5>
+
+        <a href="{% url 'manager' %}" class="animated fadeIn">Voltar a página de login</a>
+        <a href="/" class="animated fadeIn">Voltar ao site</a>
+    </div>
+</div>
+{% endblock %}

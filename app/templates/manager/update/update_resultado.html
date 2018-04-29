@@ -1,0 +1,141 @@
+{% extends 'manager/base.html' %}
+{% load staticfiles %}
+{% block title %}Atualizar resultado{% endblock %}
+{% block content %}
+<br>
+<br>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<div class="row" style="padding: 3%;">
+    <div class="col-lg-12">
+        <div class="row mb-3">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h1 class="h1-responsive text-center">
+                            Partida
+                        </h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-lg-8 text-center">
+                                <div class="row justify-content-center align-middle">
+                                    <div class="col-3">
+                                        <figure class="figure pull-left">
+                                            {% if partida.mandante.emblema %}
+                                            <img src="{{partida.mandante.emblema.url}}" style="height:10vh;" class="figure-img img-fluid">
+                                            {% else %}
+                                            <span class="fa fa-shield fa-5x"></span>
+                                            {% endif %}
+                                            <figcaption class="figure-caption text-center">{{partida.mandante}}</figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="col-6 mt-4">
+                                        <div class="h3-responsive">
+                                            {{partida.gols_mandante}} &nbsp X &nbsp {{partida.gols_visitante}}
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <figure class="figure pull-right">
+                                                {% if partida.visitante.emblema %}
+                                                <img src="{{partida.visitante.emblema.url}}" style="height:10vh;" class="figure-img img-fluid">
+                                                {% else %}
+                                                <span class="fa fa-shield fa-5x"></span>
+                                                {% endif %}
+                                                <figcaption class="figure-caption text-center">{{partida.visitante}}</figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4 mb-4">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body mt-2">
+                        <h3 class="h3-responsive text-center">
+                            Adicionar lance
+                            <a data-toggle="modal" data-target="#modalLance" onclick="chamarModal('{{partida.pk}}')">
+                                <span class="fa fa-plus fa-lg green-text"></span>
+                            </a>
+                        </h3>
+                    </div>                    
+                </div>                
+            </div>            
+        </div>
+        <div class="row">            
+            <div class="col-lg-6 mb-3">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h3 class="h3-responsive">Lances do mandante</h3>
+                    </div>
+                    <div class="card-body">                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <th>Lance</th>
+                                    <th>Jogador</th>
+                                </thead>
+                                <tbody>
+                                    {% for l in lances_mandante %}
+                                    <tr>                                        
+                                        {% if l.lance == 'G' %}
+                                        <td><img src="{% static 'img/gol.svg' %}" style="height:2em;"></td>    
+                                        {% elif l.lance == 'CA' %}
+                                        <td><img src="{% static 'img/c_amarelo.svg' %}" style="height:2em;"></td>
+                                        {% elif l.lance == 'CV' %}
+                                        <td><img src="{% static 'img/c_vermelho.svg' %}" style="height:2em;"></td>    
+                                        {% else %}
+                                        <td><img src="{% static 'img/gol_contra.svg' %}" style="height:3em;"></td>
+                                        {% endif %}
+                                        <td>{{l.jogador}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header elegant-color-dark white-text">
+                        <h3 class="h3-responsive">Lances do visitante</h3>
+                    </div>
+                    <div class="card-body">                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <th>Lance</th>
+                                    <th>Jogador</th>
+                                </thead>
+                                <tbody>
+                                    {% for l in lances_visitante %}
+                                    <tr>
+                                        {% if l.lance == 'G' %}
+                                        <td><img src="{% static 'img/gol.svg' %}" style="height:2em;"></td>    
+                                        {% elif l.lance == 'CA' %}
+                                        <td><img src="{% static 'img/c_amarelo.svg' %}" style="height:2em;"></td>
+                                        {% elif l.lance == 'CV' %}
+                                        <td><img src="{% static 'img/c_vermelho.svg' %}" style="height:2em;"></td>    
+                                        {% else %}
+                                        <td><img src="{% static 'img/gol_contra.svg' %}" style="height:3em;"></td>
+                                        {% endif %}
+                                        <td>{{l.jogador}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'manager/update/modalLance.html' %}
+{% include 'manager/update/modal_success.html' %}
+{% include 'manager/update/modal_error.html' %}
+{% endblock %}

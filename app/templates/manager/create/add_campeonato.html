@@ -1,0 +1,67 @@
+{% extends 'manager/base.html' %}
+
+{% block title %}
+Criar campeonato - SGCE Admin
+{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<div class="row" style="padding: 3%;" onload="esconder();">
+  <div class="col-lg-12">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header elegant-color-dark white-text">
+            <h1 class="h1-responsive">Criar campeonato</h1>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="md-form">
+                <label for="nomeChamp">Nome do campeonato</label>
+                <input class="form-control" type="text" id="nomeChamp" name="nome" required maxlength="30">
+              </div>
+              <hr>
+              <select class="custom-select mb-2 mr-sm-2 mb-sm-0 mb-3" id="formato" name="formato" required>
+                <option value="">Selecione o formato...</option>
+                <option value="PC">Todos contra todos</option>
+                <option value="C">Copa</option>
+              </select>              
+              <hr>
+
+              <!-- Se for copa -->              
+              <select class="custom-select mb-2 mr-sm-2 mb-sm-0 mb-3" id="n_equipes" name="qtd_times">
+                <option value="">Número de equipes...</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="8">8</option>
+                <option value="16">16</option>
+                <option value="32">32</option>
+                <option value="64">64</option>
+              </select>
+              <!-- ./Se for copa -->
+
+              <!-- Se for PC -->
+              <div class="md-form" id="num_e">
+                <label for="n_eq">Número de equipes</label>
+                <input class="form-control" type="number" id="n_eq" name="qtd_times" min="0">
+              </div>
+              <!-- ./ Se for PC -->
+
+              <!-- Se for copa -->
+              <div class="md-form" id="q_gr">
+                <label for="q_grupos">Qtd. de grupos</label>
+                <input class="form-control" type="number" id="q_grupos" name="qtd_grupos" min="0" max="20">
+              </div>
+              <!-- ./ Se for copa -->
+
+              <button type="submit" class="btn btn-elegant">Criar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

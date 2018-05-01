@@ -40,7 +40,7 @@ class TimeAdmin(admin.ModelAdmin):
 
 class PartidaAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['grupo', 'data', 'rodada', 'mandante','gols_mandante', 'visitante','gols_visitante', 'finalizada']})        
+        (None, {'fields': ['data', 'rodada', 'mandante','gols_mandante', 'visitante','gols_visitante', 'finalizada']})        
     ]    
     
     list_filter = ['mandante', 'visitante', 'campeonato']
@@ -50,9 +50,13 @@ class PostAdmin(admin.ModelAdmin):
         (None, {'fields': ['titulo', 'conteudo', 'imagem', 'created_date']})
     ]
 
+class JogadorAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'created_at')
+
+
 admin.site.register(Campeonato, CampeonatoAdmin)
 admin.site.register(Equipe, TimeAdmin)
-admin.site.register(Jogador)
+admin.site.register(Jogador, JogadorAdmin)
 admin.site.register(Partida, PartidaAdmin)
 admin.site.register(Tecnico)
 admin.site.register(Lance)

@@ -110,7 +110,7 @@ class Partida(models.Model):
     mandante = models.ForeignKey(Equipe, verbose_name='Mandante', related_name='mandante')
     visitante = models.ForeignKey(Equipe, verbose_name='Visitante', related_name='visitante')
     rodada = models.PositiveIntegerField('Rodada')
-    grupo = models.ForeignKey(Grupo, verbose_name='Grupo')
+    # grupo = models.ForeignKey(Grupo, verbose_name='Grupo')
     campeonato = models.PositiveIntegerField('Campeonato', default=None)
     gols_mandante = models.PositiveIntegerField('Gols mandante', default=0)
     gols_visitante = models.PositiveIntegerField('Gols visitante', default=0)

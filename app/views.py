@@ -382,22 +382,21 @@ def jogador_remove(request, c, pk):
 @login_required(login_url='/manager/login/')
 def create_partida(request, pk):
     equipes = Equipe.objects.filter(campeonato = pk)
-    grupos = Grupo.objects.filter(campeonato = pk)
+    # grupos = Grupo.objects.filter(campeonato = pk)
     if request.method == 'POST':
         form = CreatePartida(request.POST or None)        
         if form.is_valid():
             mandante = get_object_or_404(Equipe, pk=request.POST['mandante'])
             visitante = get_object_or_404(Equipe, pk=request.POST['visitante'])
-            grupo = get_object_or_404(Grupo, pk=request.POST['grupo'])
+            # grupo = get_object_or_404(Grupo, pk=request.POST['grupo'])
             rodada = request.POST['rodada']
             campeonato = request.POST['campeonato']
             data = request.POST['data']
-            partida = Partida(mandante=mandante, visitante=visitante, grupo=grupo, rodada=rodada, campeonato=campeonato, data=data)
+            partida = Partida(mandante=mandante, visitante=visitante, rodada=rodada, campeonato=campeonato, data=data)
             partida.save()
             return redirect('list_partida', pk=campeonato)
     context = {
-        'equipes':equipes,
-        'grupos':grupos,
+        'equipes':equipes,        
         'pk':pk,
     }
     return render(request, 'manager/create/add_partida.html', context)
@@ -467,29 +466,29 @@ def criar_lance(request):
         l.update()        
         return HttpResponse('')
 
-@login_required(login_url='/manager/login/')
-def gerar_partidas(request, pk):  
-    teams = []
-    partidas = []
-    grupos = list(Grupo.objects.filter(campeonato=pk))
-    equipes = Equipe.objects.all()
-    if len(grupos) == 1:
-        grupos = get_object_or_404(Grupo, campeonato=pk)
-        teams = list(Equipe.objects.filter(grupo=grupos))
-        partidas = gerarP(teams, grupos, pk)
-        #tmp = gerarP(list(reversed(teams)), grupos, pk)
-        #partidas += tmp
-    else:        
-        for g in grupos:
-            aux = list(Equipe.objects.filter(grupo=g))
-            teams += aux
-        partidas = gerarC(teams, grupos, pk)            
+# @login_required(login_url='/manager/login/')
+# def gerar_partidas(request, pk):  
+#     teams = []
+#     partidas = []
+#     grupos = list(Grupo.objects.filter(campeonato=pk))
+#     equipes = Equipe.objects.all()
+#     if len(grupos) == 1:
+#         grupos = get_object_or_404(Grupo, campeonato=pk)
+#         teams = list(Equipe.objects.filter(grupo=grupos))
+#         partidas = gerarP(teams, grupos, pk)
+#         #tmp = gerarP(list(reversed(teams)), grupos, pk)
+#         #partidas += tmp
+#     else:        
+#         for g in grupos:
+#             aux = list(Equipe.objects.filter(grupo=g))
+#             teams += aux
+#         partidas = gerarC(teams, grupos, pk)            
 
-    if request.method == 'POST':        
-        for p in partidas:
-            p.save()
-        return redirect('list_partida', pk=pk)
-    return render(request, 'manager/create/gerar_partidas.html', {'partidas':partidas})
+#     if request.method == 'POST':        
+#         for p in partidas:
+#             p.save()
+#         return redirect('list_partida', pk=pk)
+#     return render(request, 'manager/create/gerar_partidas.html', {'partidas':partidas})
 
 @login_required(login_url='/manager/login/')
 def create_grupo(request, pk):

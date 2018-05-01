@@ -46,6 +46,7 @@
                                     <span class="fa fa-trash fa-lg red-text"></span>
                                 </a>
                                 &nbsp&nbsp
+                                {% if partida.finalizada == False %}
                                 <a href="{% url 'partida_edit' pk=partida.pk %}">
                                     <span class="fa fa-pencil fa-lg"></span>
                                 </a>
@@ -53,6 +54,7 @@
                                 <a href="{% url 'update_resultado' pk=partida.pk %}">
                                     <span class="fa fa-refresh fa-lg"></span>
                                 </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}

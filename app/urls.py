@@ -51,7 +51,7 @@ urlpatterns = [
     url(r'^manager/campeonatos/list_partida/(?P<pk>[0-9]+)/$', partida_list, name='list_partida'),
     url(r'^manager/campeonato/editar_partida/(?P<pk>[0-9]+)/$', partida_edit, name='partida_edit'),
 
-    url(r'^manager/campeonatos/gerar/(?P<pk>[0-9]+)/$', gerar_partidas, name='gerar_partidas'),
+    # url(r'^manager/campeonatos/gerar/(?P<pk>[0-9]+)/$', gerar_partidas, name='gerar_partidas'),
     url(r'^manager/campeonatos/update_resultado/(?P<pk>[0-9]+)/$', update_resultado, name='update_resultado'),    
     url(r'^manager/campeonatos/criar_lance/$', criar_lance, name='criar_lance'),
 

@@ -1,11 +1,10 @@
 {% extends 'app/base.html' %}
-
 {% load staticfiles %}
-
 {% block title %} Campeonato Milagrense - Home {% endblock %}
 
 {% block content %}
-<br><br>
+<br>
+<br>
 <div class="row">
 
   <!--Main column-->
@@ -20,144 +19,127 @@
           </div>
         -->
         <!--Carousel Wrapper-->
-        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-          <!--Indicators-->
-          <ol class="carousel-indicators">
-            <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-1z" data-slide-to="1"></li>
-            <li data-target="#carousel-example-1z" data-slide-to="2"></li>
-          </ol>
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">          
           <!--/.Indicators-->
           <!--Slides-->
-          <div class="carousel-inner" role="listbox">
-            {% for post in posts3 %}
-            {% if forloop.counter == 1 %}
-            <div class="carousel-item active">
-            {% else %}
-            <div class="carousel-item">
-            {% endif %}
-              <a href="{% url 'post' pk=post.pk %}">
-              <div class="view hm-black-light">
-                  <img src="{{post.imagem.url}}" alt="First slide" class="img-fluid">
-                  <div class="mask"></div>
-              </div>              
+          <div class="carousel-inner" role="listbox">            
+            <div class="carousel-item active">                                    
+                <a href="{% url 'post' pk=post.pk %}">
+                  <div class="view hm-black-light">
+                    <img src="{{post.imagem.url}}" alt="First slide" class="img-fluid">
+                    <div class="mask"></div>
+                  </div>
 
-              <div class="carousel-caption">
-                <p>{{post.titulo | truncatechars:50}}</p>
-                <br>
+                  <div class="carousel-caption">
+                    <p>{{post.titulo | truncatechars:50}}</p>
+                    <br>
+                  </div>
+                </a>
+              </div>              
+            </div>
+
+            <!--/.Slides-->            
+          </div>
+          <!--/.Carousel Wrapper-->
+        </div>
+      </div>
+      <!--/.First row-->
+      <br>
+      <hr class="extra-margins">
+
+    </div>
+  </div>
+  <div class="row">
+    <!-- Right Column -->
+    <div class="col-md-8">
+      <!--Noticias mais recentes-->
+      {% for p in posts3 %}
+      <div class="row">
+        <!--Imagem do post-->
+        <div class="col-lg-5 mb-3">
+          <div class="view overlay hm-white-light z-depth-1-half">
+            <img src="{{p.imagem.url}}" class="img-fluid" alt="">
+            <div class="mask waves-effect waves-light"></div>
+          </div>
+        </div>
+        <!--/.Imagem do post-->
+
+        <!--Resumo-->
+        <div class="col-lg-7 mb-9">
+          <a href="{% url 'post' pk=p.pk %}">
+            <h3 class="h3-responsive black-text">{{p.titulo}}</h3>
+          </a>
+          <p class="my-4">
+            {{ p.conteudo | truncatechars:150 }}
+            <small>
+              <a href="{% url 'post' pk=post.pk %}">Continuar lendo</a>
+            </small>
+          </p>
+        </div>
+        <!--/.Resumo-->
+      </div>
+      <hr class="extra-margins"> {% endfor %}
+    </div>
+    <div class="col-lg-4">
+      {% for camp in camps %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header blue darken-4 white-text">
+              {{camp.nome}}
+            </div>
+            {%if camp.formato == 'PC' %} {% for grupo in grupos %} {% if grupo.campeonato == camp %}
+            <div class="table-responsive">
+              <table class="table position">
+                <thead>
+                  <th>Posição</th>
+                  <th colspan="2">Time</th>
+                  <th>Pts</th>
+                </thead>
+                <tbody>
+                  {% for equipe in equipes %} {% if equipe.grupo == grupo %}
+                  <tr>
+                    <td></td>
+
+                    {% if equipe.emblema %}
+                    <td>
+                      <img src="{{equipe.emblema.url}}" alt="" style="height: 20px; width: 20px;">
+                    </td>
+                    {% else %}
+                    <td>
+                      <span class="fa fa-shield fa-lg"></span>
+                    </td>
+                    {% endif %}
+
+                    <td>{{equipe.nome}}</td>
+                    <td>{{equipe.pontos}}</td>
+                  </tr>
+                  {% endif %} {% endfor %}
+                </tbody>
+              </table>
+              {% endif %} {% endfor %}
+              <div class="card-body">
+                <a href="{% url 'tabela' pk=camp.pk %}">Ver tabela completa
+                  <span class="fa fa-arrow-right"></span>
+                </a>
               </div>
+            </div>
+
+            {% else %}
+            <div class="card-body">
+              <a href="{% url 'tabela' pk=camp.pk %}">Ver todos os grupos
+                <span class="fa fa-arrow-right"></span>
               </a>
             </div>
-            {% endfor %}
-          </div>
-
-          <!--/.Slides-->
-          <!--Controls-->
-          <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Previous</span>
-                          </a>
-          <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Next</span>
-                          </a>
-          <!--/.Controls-->
-        </div>
-        <!--/.Carousel Wrapper-->
-      </div>
-    </div>
-    <!--/.First row-->
-    <br>
-    <hr class="extra-margins">
-
-  </div>
-</div>
-<div class="row">
-  <!-- Right Column -->
-  <div class="col-md-8">
-    <!--Noticias mais recentes-->
-    {% for post in posts %}
-    <div class="row">
-      <!--Imagem do post-->
-      <div class="col-lg-5 mb-3">
-        <div class="view overlay hm-white-light z-depth-1-half">
-          <img src="{{post.imagem.url}}" class="img-fluid" alt="">
-          <div class="mask waves-effect waves-light"></div>
-        </div>
-      </div>
-      <!--/.Imagem do post-->
-
-      <!--Resumo-->
-      <div class="col-lg-7 mb-9">
-        <a href="{% url 'post' pk=post.pk %}"><h3 class="h3-responsive black-text">{{post.titulo}}</h3></a>
-        <p class="my-4">
-          {{ post.conteudo | truncatechars:150 }}
-          <small><a href="{% url 'post' pk=post.pk %}">Continuar lendo</a></small>
-        </p>
-      </div>
-      <!--/.Resumo-->
-    </div>
-    <hr class="extra-margins">
-    {% endfor %}
-  </div>
-  <div class="col-lg-4">
-    {% for camp in camps %}    
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header blue darken-4 white-text">
-            {{camp.nome}}
-          </div>
-          {%if camp.formato == 'PC' %}
-          {% for grupo in grupos %}
-          {% if grupo.campeonato == camp %}
-          <div class="table-responsive">
-            <table class="table position">
-              <thead>
-                <th>Posição</th>
-                <th colspan="2">Time</th>
-                <th>Pts</th>
-              </thead>
-              <tbody>
-                {% for equipe in equipes %}
-                {% if equipe.grupo == grupo %}
-                <tr>
-                  <td></td>
-                  
-                  {% if equipe.emblema %}
-                  <td><img src="{{equipe.emblema.url}}" alt="" style="height: 20px; width: 20px;"></td>
-                  {% else %}
-                  <td><span class="fa fa-shield fa-lg"></span></td>
-                  {% endif %}
-                                      
-                  <td>{{equipe.nome}}</td>
-                  <td>{{equipe.pontos}}</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-              </tbody>
-            </table>
             {% endif %}
-            {% endfor %}
-            <div class="card-body">
-              <a href="{% url 'tabela' pk=camp.pk %}">Ver tabela completa <span class="fa fa-arrow-right"></span></a>
-            </div>
           </div>
-          
-          {% else %}
-          <div class="card-body">
-            <a href="{% url 'tabela' pk=camp.pk %}">Ver todos os grupos <span class="fa fa-arrow-right"></span></a>
-          </div>
-          {% endif %}
         </div>
       </div>
+      <br> {% endfor %}
+      <br>
     </div>
-    <br>
-    {% endfor %}
-    <br>    
+    <!--/.Right Column -->
   </div>
-  <!--/.Right Column -->
-</div>
-<!--/.Main column-->
+  <!--/.Main column-->
 
-{% endblock content %}
+  {% endblock content %}

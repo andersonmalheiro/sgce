@@ -19,10 +19,10 @@ def index(request):
     for g in grupos:
         aux = Equipe.objects.filter(grupo=g).order_by('-pontos')[:5]
         equipes += aux
-    post = Post.objects.all().order_by('-created_date')[0]
-    posts3 = Post.objects.all( ).order_by('-created_date')[1:3]
+    posts = Post.objects.all().order_by('-created_date')[2:6]
+    posts2 = Post.objects.all( ).order_by('-created_date')[:2]
     
-    return render(request, 'app/inicio.html', {'equipes': equipes, 'grupos': grupos, 'camps': camps, 'post': post, 'posts3': posts3})
+    return render(request, 'app/inicio.html', {'equipes': equipes, 'grupos': grupos, 'camps': camps, 'posts': posts, 'posts2': posts2})
 
 def tabela(request, pk):
     camps = Campeonato.objects.all()

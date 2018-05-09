@@ -16,8 +16,9 @@ def index(request):
     camps = Campeonato.objects.all()
     grupos = Grupo.objects.all()
     equipes = []
+
     for g in grupos:
-        aux = Equipe.objects.filter(grupo=g).order_by('-pontos')[:5]
+        aux = Equipe.objects.filter(grupo=g).order_by('-pontos')[:4]
         equipes += aux
     posts = Post.objects.all().order_by('-created_date')[2:6]
     posts2 = Post.objects.all( ).order_by('-created_date')[:2]

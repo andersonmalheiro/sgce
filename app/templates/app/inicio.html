@@ -98,15 +98,18 @@
       <hr class="extra-margins">
       {% endfor %}
     </div>
+
+
     <div class="col-lg-4">
       {% for camp in camps %}
-      <div class="row">
+      
         <div class="col-md-12">
           <div class="card">
             <div class="card-header blue darken-4 white-text">
               {{camp.nome}}
             </div>
             {%if camp.formato == 'PC' %} {% for grupo in grupos %} {% if grupo.campeonato == camp %}
+            <div class="card-body ">
             <div class="table-responsive">
               <table class="table position">
                 <thead>
@@ -142,13 +145,65 @@
                 </a>
               </div>
             </div>
-
             {% else %}
-            <div class="card-body">
+            
+              <div class="card-body ">
+              <ul class="nav nav-tabs justify-content-center">
+              {% for grupo in grupos %}
+              {% if grupo.campeonato == camp%}
+              {% if forloop.counter == 1 %}
+                <li class="nav-item active show">
+              {% else %}
+                <li class="nav-item">
+              {% endif %}
+                  <a data-toggle="tab" class="nav-link" href="#{{grupo.nome}}">{{grupo.nome}}</a>
+                </li>
+              {% endif %}
+              {% endfor %}
+              </ul>
+              <div class="tab-content">
+              {% for grupo in grupos %} 
+                {% if forloop.counter == 1 %}
+                <div id="{{grupo.nome}}" class="tab-pane fade in active show">
+                {% else %}
+                <div id="{{grupo.nome}}" class="tab-pane fade in">
+                {% endif %}
+                    <div class="table-responsive">
+                      <table class="table position">
+                        <thead>
+                          <th>Posição</th>
+                          <th colspan="2">Time</th>
+                          <th>Pts</th>
+                        </thead>
+                        <tbody> 
+                        {% for equipe in equipes %} {% if equipe.grupo == grupo %}                  
+                          <tr>
+                            <td></td>
+                            {% if equipe.emblema %}
+                            <td>
+                              <img src="{{equipe.emblema.url}}" alt="" style="height: 20px; width: 20px;">
+                            </td>
+                            {% else %}
+                            <td>
+                              <span class="fa fa-shield fa-lg"></span>
+                            </td>
+                            {% endif %}
+                            <td>{{equipe.nome}}</td>
+                            <td>{{equipe.pontos}}</td>
+                          </tr>
+                        {% endif %} {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+
+              {% endfor %}
+                             
               <a href="{% url 'tabela' pk=camp.pk %}">Ver todos os grupos
                 <span class="fa fa-arrow-right"></span>
               </a>
             </div>
+            
             {% endif %}
           </div>
         </div>

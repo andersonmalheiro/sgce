@@ -13,17 +13,40 @@ import json
 # Create your views here.
 
 def index(request):
-    camps = Campeonato.objects.all()
-    grupos = Grupo.objects.all()
-    equipes = []
+    ligas = Campeonato.objects.filter(formato='PC')
+    copas = Campeonato.objects.filter(formato='C')
+    grupos_ligas = []
+    grupos_copas = []
+    equipes_ligas = []
+    equipes_copas = []
 
-    for g in grupos:
-        aux = Equipe.objects.filter(grupo=g).order_by('-pontos')[:4]
-        equipes += aux
+    for l in ligas:
+        grupos_ligas += Grupo.objects.filter(campeonato = l)
+    
+    for c in copas:
+        grupos_copas += Grupo.objects.filter(campeonato = c)
+
+    for gc in grupos_copas:
+        equipes_copas += Equipe.objects.filter(grupo=gc)
+    
+    for gl in grupos_ligas:
+        equipes_ligas += Equipe.objects.filter(grupo=gl)[:4]
+
     posts = Post.objects.all().order_by('-created_date')[2:6]
     posts2 = Post.objects.all( ).order_by('-created_date')[:2]
     
-    return render(request, 'app/inicio.html', {'equipes': equipes, 'grupos': grupos, 'camps': camps, 'posts': posts, 'posts2': posts2})
+    context={
+        'ligas':ligas,
+        'copas':copas,
+        'grupos_ligas':grupos_ligas,
+        'grupos_copas':grupos_copas,
+        'equipes_ligas':equipes_ligas,
+        'equipes_copas':equipes_copas,
+        'posts': posts,
+        'posts2':posts2
+    }
+    
+    return render(request, 'app/inicio.html', context)
 
 def tabela(request, pk):
     camps = Campeonato.objects.all()

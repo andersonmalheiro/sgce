@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title %}
-Campeonato Milagrense - {{post.titulo}}
+{{post.titulo}}
 {% endblock %}
 
 {% block content%}
@@ -16,7 +16,7 @@ Campeonato Milagrense - {{post.titulo}}
 	    </div>
 
         <div class="col-md-10">
-		    <img src="{{post.imagem.url}}" width="100%">
+		    <img src="{{post.imagem.url}}" width="100%" alt="{{post.titulo}}">
 	    </div>
 
         <div class="col-md-10">

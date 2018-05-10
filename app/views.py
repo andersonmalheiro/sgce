@@ -30,7 +30,7 @@ class Group(object):
 # Create your views here.
 
 def index(request):
-    camps = Campeonato.objects.all()    
+    camps = Campeonato.objects.all().order_by('nome')    
     grupos = []          
     torneios = []
     sorteado = False

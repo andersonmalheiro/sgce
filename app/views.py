@@ -10,38 +10,45 @@ from logica.functions import *
 from django.views.generic import UpdateView
 import json
 
+# Objetos torneio e grupos
+class Torneio(object):
+    def __init__(self, nome, formato, grupos, pk):
+        self.nome = nome
+        self.formato = formato
+        self.grupos = grupos
+        self.pk = pk
+    
+
+class Group(object):
+    def __init__(self, nome, times, pk):
+        self.nome = nome
+        self.times = times
+        self.pk = pk
+
+
 # Create your views here.
 
 def index(request):
-    ligas = Campeonato.objects.filter(formato='PC')
-    copas = Campeonato.objects.filter(formato='C')
-    grupos_ligas = []
-    grupos_copas = []
-    equipes_ligas = []
-    equipes_copas = []
+    camps = Campeonato.objects.all()    
+    grupos = []          
+    torneios = []
 
-    for l in ligas:
-        grupos_ligas += Grupo.objects.filter(campeonato = l)
+    for c in camps:
+        groups = Grupo.objects.filter(campeonato = c).order_by('nome')
+        for g in groups:
+            times = Equipe.objects.filter(grupo = g).order_by('-pontos')[:4]
+            grupo = Group(g.nome, times, g.pk)
+            grupos.append(grupo)
+        campeonato = Torneio(c.nome, c.formato, grupos, c.pk)
+        torneios.append(campeonato)
+        grupos = []
     
-    for c in copas:
-        grupos_copas += Grupo.objects.filter(campeonato = c)
-
-    for gc in grupos_copas:
-        equipes_copas += Equipe.objects.filter(grupo=gc)
-    
-    for gl in grupos_ligas:
-        equipes_ligas += Equipe.objects.filter(grupo=gl)[:4]
-
     posts = Post.objects.all().order_by('-created_date')[2:6]
     posts2 = Post.objects.all( ).order_by('-created_date')[:2]
     
     context={
-        'ligas':ligas,
-        'copas':copas,
-        'grupos_ligas':grupos_ligas,
-        'grupos_copas':grupos_copas,
-        'equipes_ligas':equipes_ligas,
-        'equipes_copas':equipes_copas,
+        'camps':camps,
+        'torneios':torneios,
         'posts': posts,
         'posts2':posts2
     }

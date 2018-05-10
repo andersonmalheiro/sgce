@@ -72,7 +72,7 @@
   </div>
   <div class="row">
     <!-- Right Column -->
-    <div class="col-md-8">
+    <div class="col-lg-8">
       <!--Noticias mais recentes-->
       {% for post in posts %}
       <div class="row">
@@ -104,144 +104,94 @@
         <!-- Tabelas  Copas -->
         <h4 class="text-center mb-3">Campeonatos</h4>
         
-        {% for c in copas %}
+        {% for t in torneios %}
         <div class="row justify-content-center mb-3">
           <div class="col-md-12">
             <div class="card">
-                <div class="card-header blue darken-4 white-text" data-toggle="collapse" href="#{{c.pk}}" style="cursor:pointer;">
-                    {{c.nome}}
+                <div class="card-header blue darken-4 white-text" data-toggle="collapse" href="#{{t.pk}}" style="cursor:pointer;">
+                    {{t.nome}}
                     <span class="align-middle fa fa-angle-down fa-2x pull-right"></span>
                 </div>
                 <!-- Corpo do card -->
-                {% if forloop.counter == 1 %}
-                <div class="card-body" id="{{c.pk}}">
-                {% else %}
-                <div class="card-body collapse" id="{{c.pk}}">
-                {% endif %}
-                    <!-- Tabs -->
-                    <ul class="nav nav-tabs justify-content-center">
-                        {% for g in grupos_copas %}
-                          {% if g.campeonato == c %}
-                            {% if forloop.counter == 1 %}
-                              <li class="nav-item active show">
-                            {% else %}
-                              <li class="nav-item">
+                <div class="collapse" id="{{t.pk}}">
+                  <div class="card-body">                
+                      <!-- Tabs -->
+                      {% if t.formato == 'C' %}
+                      <ul class="nav nav-tabs justify-content-center">
+                          {% for g in t.grupos %}
+                            
+                              {% if forloop.counter == 1 %}
+                                <li class="nav-item active show">
+                              {% else %}
+                                <li class="nav-item">
+                              {% endif %}
+                                  <a data-toggle="tab" class="nav-link" href="#{{g.nome}}">{{g.nome}}</a>
+                              </li>
+                            
+                          {% endfor %}
+                      </ul>
+                      {% endif %}
+                      <!-- ./Tabs -->
+                      {% if t.formato == 'C' %}
+                      <div class="tab-content">
+                      {% endif %}
+                          {% for g in t.grupos %}
+                            {% if t.formato == 'C' %}
+                              {% if forloop.counter == 1 %}
+                                <div id="{{g.nome}}" class="tab-pane fade in active show">
+                              {% else %}
+                                <div id="{{g.nome}}" class="tab-pane fade in">
+                              {% endif %}
                             {% endif %}
-                                <a data-toggle="tab" class="nav-link" href="#{{g.nome}}">{{g.nome}}</a>
-                            </li>
-                          {% endif %}
-                        {% endfor %}
-                    </ul>
-                    <!-- ./Tabs -->
-                    <div class="tab-content">
-                        {% for g in grupos_copas %}
-                        {% if g.campeonato == c %}
-                          {% if forloop.counter == 1 %}
-                            <div id="{{g.nome}}" class="tab-pane fade in active show">
-                          {% else %}
-                            <div id="{{g.nome}}" class="tab-pane fade in">
-                          {% endif %}
-                              <div class="table-responsive">
-                                  <table class="table position">
-                                      <thead>
-                                          <th>Posição</th>
-                                          <th colspan="2">Time</th>
-                                          <th>Pts</th>
-                                      </thead>
-                                      <tbody>
-                                        {% for e in equipes_copas %}
-                                          {% if e.grupo == g %}                   
-                                          <tr>
-                                              <td></td>
-                                              {% if e.emblema %}
-                                              <td>
-                                                  <img src="{{e.emblema.url}}" alt="" style="height: 20px; width: 20px;">
-                                              </td>
-                                              {% else %}
-                                              <td>
-                                                  <span class="fa fa-shield fa-lg"></span>
-                                              </td>
-                                              {% endif %}
-                                              <td>
-                                                  {{e.nome}}
-                                              </td>
-                                              <td>
-                                                  {{e.pontos}}
-                                              </td>
-                                          </tr>
-                                          {% endif %}
-                                        {% endfor %}
-                                      </tbody>
-                                  </table>
+                                <div class="table-responsive">
+                                    <table class="table position">
+                                        <thead>
+                                            <th>Posição</th>
+                                            <th colspan="2">Time</th>
+                                            <th>Pts</th>
+                                        </thead>
+                                        <tbody>
+                                          {% for e in g.times %}                                                        
+                                            <tr>
+                                                <td></td>
+                                                {% if e.emblema %}
+                                                <td>
+                                                    <img src="{{e.emblema.url}}" alt="" style="height: 20px; width: 20px;">
+                                                </td>
+                                                {% else %}
+                                                <td>
+                                                    <span class="fa fa-shield fa-lg"></span>
+                                                </td>
+                                                {% endif %}
+                                                <td>
+                                                    {{e.nome}}
+                                                </td>
+                                                <td>
+                                                    {{e.pontos}}
+                                                </td>
+                                            </tr>                                          
+                                          {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% if t.formato == 'C' %}    
                               </div>
-                          </div>
-                          {% endif %}
-                        {% endfor %}
+                            {% endif %}
+                          {% endfor %}                        
+                      </div>
+                  {% if t.formato == 'C' %}    
                     </div>
-                </div>
-                <!-- ./Corpo do card -->
-            </div>
+                  {% endif %}
+                  <!-- ./Corpo do card -->
+              </div>
+              <div class="card-footer blue-text">
+                <a href="{% url 'tabela' pk=t.pk %}">Ver mais detalhes</a>
+              </div>
+          </div>                
         </div>
       </div>
       {% endfor %}  
-      <!--/.Tabelas Copas -->
-
-      <!-- Tabelas  Ligas -->
-        {% for l in ligas %}
-        <div class="row justify-content-center mt-3">
-          <div class="col-md-12">
-            <div class="card">
-                <div class="card-header blue darken-4 white-text" data-toggle="collapse" href="#{{l.pk}}">
-                    {{l.nome}}
-                    <span class="align-middle fa fa-angle-down fa-2x pull-right"></span>
-                </div>
-                <!-- Corpo do card -->
-                <div class="card-body collapse" id="{{l.pk}}">  
-                    {% for gl in grupos_ligas %}
-                      {% if gl.campeonato == l %}
-                          <div class="table-responsive">
-                              <table class="table position">
-                                  <thead>
-                                      <th>Posição</th>
-                                      <th colspan="2">Time</th>
-                                      <th>Pts</th>
-                                  </thead>
-                                  <tbody>
-                                    {% for e in equipes_ligas %}
-                                      {% if e.grupo == gl %}                   
-                                      <tr>
-                                          <td></td>
-                                          {% if e.emblema %}
-                                          <td>
-                                              <img src="{{e.emblema.url}}" alt="" style="height: 20px; width: 20px;">
-                                          </td>
-                                          {% else %}
-                                          <td>
-                                              <span class="fa fa-shield fa-lg"></span>
-                                          </td>
-                                          {% endif %}
-                                          <td>
-                                              {{e.nome}}
-                                          </td>
-                                          <td>
-                                              {{e.pontos}}
-                                          </td>
-                                      </tr>
-                                      {% endif %}
-                                    {% endfor %}
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-                      {% endif %}
-                    {% endfor %}
-                </div>
-                <!-- ./Corpo do card -->
-            </div>
-        </div>
-      
-      {% endfor %}  
-      <!--/.Tabelas Copas -->  
+      <!--/.Tabelas Copas -->      
     </div>
     <!--/.Listagem dos campeonatos -->
     

@@ -12,11 +12,12 @@ import json
 
 # Objetos torneio e grupos
 class Torneio(object):
-    def __init__(self, nome, formato, grupos, pk):
+    def __init__(self, nome, formato, grupos, pk, sorteado):
         self.nome = nome
         self.formato = formato
         self.grupos = grupos
         self.pk = pk
+        self.sorteado = sorteado
     
 
 class Group(object):
@@ -32,16 +33,20 @@ def index(request):
     camps = Campeonato.objects.all()    
     grupos = []          
     torneios = []
+    sorteado = False
 
     for c in camps:
         groups = Grupo.objects.filter(campeonato = c).order_by('nome')
         for g in groups:
             times = Equipe.objects.filter(grupo = g).order_by('-pontos')[:4]
+            if len(times) > 0:
+                sorteado = True
             grupo = Group(g.nome, times, g.pk)
             grupos.append(grupo)
-        campeonato = Torneio(c.nome, c.formato, grupos, c.pk)
+        campeonato = Torneio(c.nome, c.formato, grupos, c.pk, sorteado)
         torneios.append(campeonato)
         grupos = []
+        sorteado = False
     
     posts = Post.objects.all().order_by('-created_date')[2:6]
     posts2 = Post.objects.all( ).order_by('-created_date')[:2]
@@ -58,14 +63,24 @@ def index(request):
 def tabela(request, pk):
     camps = Campeonato.objects.all()
     camp = get_object_or_404(Campeonato, pk=pk)
-    jogadores = Jogador.objects.filter(campeonato = camp.pk).order_by('-total_gols')[:5]
-    grupos = Grupo.objects.filter(campeonato=camp).order_by('nome')
-    equipes = Equipe.objects.filter(campeonato=camp.pk).order_by('-pontos', '-vitorias', '-empates', '-derrotas', '-saldo_gols')
-    context ={
-        'equipes': equipes,
-        'grupos': grupos,
-        'camp': camp,
+    jogadores = Jogador.objects.filter(campeonato = camp.pk).filter(total_gols__gt = 0).order_by('-total_gols')[:5]
+        
+    grupos = []              
+    sorteado = False
+    
+    groups = Grupo.objects.filter(campeonato = camp).order_by('nome')
+    for g in groups:
+        times = Equipe.objects.filter(grupo = g).order_by('-pontos')[:4]
+        if len(times) > 0:
+            sorteado = True
+        grupo = Group(g.nome, times, g.pk)
+        grupos.append(grupo)
+    
+    campeonato = Torneio(camp.nome, camp.formato, grupos, camp.pk, sorteado)    
+    
+    context ={                
         'camps': camps,
+        'campeonato':campeonato,
         'jogadores':jogadores
     }
     return render(request, 'app/tabela.html', context)

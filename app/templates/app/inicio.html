@@ -13,52 +13,52 @@
     <!--First row-->
       <div class="row">
         <div class="col-lg-12">
-          <!--
-            <div class="divider-new">
-              <h2 class="h2-responsive">Destaques</h2>
-            </div>
-          -->
-          <!--Carousel Wrapper-->
-          <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-            <!--Indicators-->
-            <ol class="carousel-indicators">
-              <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-example-1z" data-slide-to="1"></li>
-            </ol>
-            <!--/.Indicators-->
-            <!--Slides-->
-            <div class="carousel-inner" role="listbox">
-              {% for post in posts2 %}
-              {% if forloop.counter == 1 %}
-              <div class="carousel-item active">
-              {% else %}
-              <div class="carousel-item">
-              {% endif %}
-                <a href="{% url 'post' pk=post.pk %}">
-                <div class="view hm-black-light">
-                    <img src="{{post.imagem.url}}" alt="First slide" class="img-fluid">
-                    <div class="mask"></div>
-                </div>              
+			<!--
+				<div class="divider-new">
+				<h2 class="h2-responsive">Destaques</h2>
+				</div>
+			-->
+			<!--Carousel Wrapper-->
+          	<div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+            	<!--Indicators-->
+            	<ol class="carousel-indicators">
+              		<li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+              		<li data-target="#carousel-example-1z" data-slide-to="1"></li>
+            	</ol>
+            	<!--/.Indicators-->
+            	<!--Slides-->
+            	<div class="carousel-inner" role="listbox">
+              		{% for post in posts2 %}
+              		{% if forloop.counter == 1 %}
+              		<div class="carousel-item active">
+					{% else %}
+					<div class="carousel-item">
+					{% endif %}
+						<a href="{% url 'post' pk=post.pk %}">
+							<div class="view hm-black-light">
+								<img src="{{post.imagem.url}}" alt="First slide" class="img-fluid">
+								<div class="mask"></div>
+							</div>              
 
-                <div class="carousel-caption">
-                  <p>{{post.titulo | truncatechars:50}}</p>
-                  <br>
-                </div>
-                </a>
-              </div>
-              {% endfor %}
-            </div>
+							<div class="carousel-caption">
+								<p>{{post.titulo | truncatechars:50}}</p>
+								<br>
+							</div>
+						</a>
+					</div>
+					{% endfor %}
+				</div>
 
             <!--/.Slides-->
             <!--Controls-->
             <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
             <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
             <!--/.Controls-->
           </div>
           <!--/.Carousel Wrapper-->
@@ -113,7 +113,11 @@
                     <span class="align-middle fa fa-angle-down fa-2x pull-right"></span>
                 </div>
                 <!-- Corpo do card -->
+                {% if forloop.counter == 1 %}
+                <div class="collapse show" id="{{t.pk}}">
+                {% else %}
                 <div class="collapse" id="{{t.pk}}">
+                {% endif %}
                   <div class="card-body">                
                       <!-- Tabs -->
                       {% if t.formato == 'C' %}
@@ -143,6 +147,7 @@
                                 <div id="{{g.nome}}" class="tab-pane fade in">
                               {% endif %}
                             {% endif %}
+                            {% if t.sorteado %}
                                 <div class="table-responsive">
                                     <table class="table position">
                                         <thead>
@@ -174,6 +179,9 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {% else %}
+                                <p>Este campeonato ainda está em organização.</p>
+                                {% endif %}
                             {% if t.formato == 'C' %}    
                               </div>
                             {% endif %}
@@ -184,8 +192,11 @@
                   {% endif %}
                   <!-- ./Corpo do card -->
               </div>
-              <div class="card-footer blue-text">
-                <a href="{% url 'tabela' pk=t.pk %}">Ver mais detalhes</a>
+              <div class="card-footer blue-text">                
+                  <a href="{% url 'tabela' pk=t.pk %}" class="text-center pull-right">
+                    Ver mais detalhes
+                    <span class="fa fa-arrow-right"></span>
+                  </a>                              
               </div>
           </div>                
         </div>

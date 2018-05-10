@@ -3,17 +3,18 @@
 {% load staticfiles %}
 
 {% block title %}
-Campeonato Milagrense - Tabela - {{camp.nome}}
+Tabela - {{campeonato.nome}}
 {% endblock %}
 
 {% block content%}
 <br><br>
-<div class="row">    
-    <div class="col-lg-12">
-        <h1 class="h1-responsive mb-4">{{camp.nome}}</h1>        
-        {% for grupo in grupos %}
+<div class="row justify-content-center align-items-center">    
+    {% if campeonato.sorteado %}
+    <div class="col-lg-12">        
+        <h1 class="h1-responsive mb-4">{{campeonato.nome}}</h1>        
+        {% for grupo in campeonato.grupos %}
         <div class="card">
-            {% if camp.formato == 'PC' %}
+            {% if campeonato.formato == 'PC' %}
             <div class="card-header blue darken-4 white-text">
                 Tabela
             </div>
@@ -37,33 +38,7 @@ Campeonato Milagrense - Tabela - {{camp.nome}}
                         <th>SG</th>
                     </thead>
                     <tbody>
-                        {% for equipe in equipes%}
-                        {% if camp.formato == 'C' %}
-                        {% if equipe.grupo == grupo %}
-                        <tr>
-                            <td></td>
-                            <td class="text-center">
-                                {% if equipe.emblema %}
-                                <img src="{{equipe.emblema.url}}" style="height: 3vh;" class="img-fluid">
-                                {% else %}
-                                <span class="fa fa-shield fa-lg"></span>
-                                {% endif %}
-                            </td>
-                            <td>                                                                
-                                <a href="{% url 'equipe' pk=equipe.pk %}">                                    
-                                    {{equipe.nome}}
-                                </a>
-                            </td>
-                            <td>{{equipe.pontos}}</td>
-                            <td>{{equipe.vitorias}}</td>
-                            <td>{{equipe.empates}}</td>
-                            <td>{{equipe.derrotas}}</td>
-                            <td>{{equipe.gols_marcados}}</td>
-                            <td>{{equipe.gols_sofridos}}</td>
-                            <td>{{equipe.saldo_gols}}</td>
-                        </tr>
-                        {% endif %}
-                        {% else %}
+                        {% for equipe in grupo.times %}                        
                         <tr>
                             <td></td>
                             <td class="text-center">
@@ -86,9 +61,8 @@ Campeonato Milagrense - Tabela - {{camp.nome}}
                             <td>{{equipe.gols_sofridos}}</td>
                             <td>{{equipe.saldo_gols}}</td>
                         </tr>
-                        {% endif %}
-                        {% endfor %}
-                        <script>resetar_conta();</script>                        
+                        
+                        {% endfor %}                                            
                     </tbody>
                 </table>
             </div>
@@ -103,6 +77,7 @@ Campeonato Milagrense - Tabela - {{camp.nome}}
         <div class="card">
             <div class="card-header blue darken-4 white-text">Artilheiros</div>
             <div class="card-body">
+                {% if jogadores %}
                 <div class="table-responsive">
                     <table class="table position">
                         <thead>
@@ -123,9 +98,25 @@ Campeonato Milagrense - Tabela - {{camp.nome}}
                         </tbody>
                     </table>
                 </div>
+                {% else %}
+                <p>Ainda não há artilheiros</p>
+                {% endif %}
             </div>
+        </div>        
+    </div>
+    {% else %}
+    <div style="height: 65vh">
+        <div class="flex-center flex-column">
+            <h1 class="animated fadeIn mb-4">{{campeonato.nome}}</h1>
+
+            <h5 class="animated fadeIn mb-3 text-center">Este campeonato ainda está em organização.
+                <br>Estamos fazendo o melhor para lhe proporcionar as melhores estatísticas.
+            </h5>
+
+            <p class="animated fadeIn text-muted">Obrigado por nos visitar.</p>
         </div>
     </div>
+    {% endif %}
 </div>
 
 {% endblock content %}

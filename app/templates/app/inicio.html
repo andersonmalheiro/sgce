@@ -117,8 +117,7 @@
                 <div class="collapse show" id="{{t.pk}}">
                 {% else %}
                 <div class="collapse" id="{{t.pk}}">
-				{% endif %}
-				{% if t.sorteado %}
+                {% endif %}
                   <div class="card-body">                
                       <!-- Tabs -->
                       {% if t.formato == 'C' %}
@@ -147,7 +146,8 @@
                               {% else %}
                                 <div id="{{g.nome}}" class="tab-pane fade in">
                               {% endif %}
-                            {% endif %}                            
+                            {% endif %}
+                            {% if t.sorteado %}
                                 <div class="table-responsive">
                                     <table class="table position">
                                         <thead>
@@ -178,17 +178,15 @@
                                           {% endfor %}
                                         </tbody>
                                     </table>
-                                </div>                                
+                                </div>
+                                {% else %}
+                                <p>Este campeonato ainda está em organização.</p>
+                                {% endif %}
                             {% if t.formato == 'C' %}    
                               </div>
                             {% endif %}
                           {% endfor %}                        
-					  </div>
-					  {% else %}
-					  <div class="card-body">
-							<p>Este campeonato ainda está em organização.</p>
-					  </div>                        
-                    {% endif %}
+                      </div>
                   {% if t.formato == 'C' %}    
                     </div>
                   {% endif %}

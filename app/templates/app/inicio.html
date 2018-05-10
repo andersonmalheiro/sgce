@@ -31,22 +31,22 @@
               		{% for post in posts2 %}
               		{% if forloop.counter == 1 %}
               		<div class="carousel-item active">
-					{% else %}
-					<div class="carousel-item">
-					{% endif %}
-						<a href="{% url 'post' pk=post.pk %}">
-							<div class="view hm-black-light">
-								<img src="{{post.imagem.url}}" alt="First slide" class="img-fluid">
-								<div class="mask"></div>
-							</div>              
+				{% else %}
+				<div class="carousel-item">
+				{% endif %}
+					<a href="{% url 'post' pk=post.pk %}">
+						<div class="view hm-black-light">
+							<img src="{{post.imagem.url}}" alt="First slide" class="img-fluid">
+							<div class="mask"></div>
+						</div>              
 
-							<div class="carousel-caption">
-								<p>{{post.titulo | truncatechars:50}}</p>
-								<br>
-							</div>
-						</a>
+						<div class="carousel-caption">
+							<p>{{post.titulo | truncatechars:50}}</p>
+							<br>
+						</div>
+					</a>
 					</div>
-					{% endfor %}
+				{% endfor %}
 				</div>
 
             <!--/.Slides-->
@@ -117,7 +117,8 @@
                 <div class="collapse show" id="{{t.pk}}">
                 {% else %}
                 <div class="collapse" id="{{t.pk}}">
-                {% endif %}
+				{% endif %}
+				{% if t.sorteado %}
                   <div class="card-body">                
                       <!-- Tabs -->
                       {% if t.formato == 'C' %}
@@ -146,8 +147,7 @@
                               {% else %}
                                 <div id="{{g.nome}}" class="tab-pane fade in">
                               {% endif %}
-                            {% endif %}
-                            {% if t.sorteado %}
+                            {% endif %}                            
                                 <div class="table-responsive">
                                     <table class="table position">
                                         <thead>
@@ -178,15 +178,17 @@
                                           {% endfor %}
                                         </tbody>
                                     </table>
-                                </div>
-                                {% else %}
-                                <p>Este campeonato ainda está em organização.</p>
-                                {% endif %}
+                                </div>                                
                             {% if t.formato == 'C' %}    
                               </div>
                             {% endif %}
                           {% endfor %}                        
-                      </div>
+					  </div>
+					  {% else %}
+					  <div class="card-body">
+							<p>Este campeonato ainda está em organização.</p>
+					  </div>                        
+                    {% endif %}
                   {% if t.formato == 'C' %}    
                     </div>
                   {% endif %}

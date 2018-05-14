@@ -18,7 +18,24 @@
               <div class="card-body">
                 <form method="post" enctype="multipart/form-data">
                   {% csrf_token %}
-                  {{ form.as_p }}
+                  <div class="md-form">
+                    <label for="titulo">Titulo:</label>
+                    <input class="form-control" type="text" id="titulo" name="titulo" required maxlength="30">
+                  </div>
+
+                  <div class="md-form">
+                    <textarea id="summernote" name="conteudo"></textarea>
+                    <script>
+                      $('#summernote').summernote({
+                        placeholder: 'Hello stand alone ui',
+                        tabsize: 2,
+                        height: 100
+                      });
+                    </script>
+                  </div>
+                  <label for="imagem">Imagem:</label>
+                  <input type="file" id="imagem" name="imagem" required><br>
+
                   <button type="submit" class="btn btn-elegant">Criar</button>
                 </form>
               </div>

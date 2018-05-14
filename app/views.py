@@ -208,14 +208,17 @@ def manage_campeonato(request, pk):
 
 @login_required(login_url='/manager/login/')
 def post_create(request):
-    posts = Post.objects.all().order_by('-created_date')
-    form = PostForm(request.POST or None, request.FILES or None)
-
     if request.method == "POST":
+        form = PostForm(request.POST or None, request.FILES or None)
         if form.is_valid():
-            form.save()
-            return redirect('post_create')
-    return render(request, 'manager/create/add_posts.html', {'form': form, 'posts': posts})
+            titulo = request.POST["titulo"]
+            conteudo = request.POST["conteudo"]
+            imagem = form.cleaned_data["imagem"]
+            post = Post(titulo=titulo, conteudo=conteudo, imagem=imagem)
+            post.save()
+            return redirect('post_list')
+
+    return render(request, 'manager/create/add_posts.html', {})
 
 @login_required(login_url='/manager/login/')
 def champ_remove(request, pk):

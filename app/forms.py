@@ -36,7 +36,7 @@ class UpdateJogador(ModelForm):
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['titulo', 'conteudo', 'imagem', 'created_date']        
+        fields = ['titulo', 'conteudo', 'imagem']        
 
 
 class CreatePartida(ModelForm):

@@ -52,11 +52,7 @@ Campeonato Milagrense - {{equipe.nome}}
                     <tbody>
                         {% for jogador in jogadores %}
                         <tr>                            
-                            {% if jogador.foto %}
-                            <td class="text-center"><img src="{{ jogador.foto.url }}" style="height: 3em;"></td>
-                            {% else %}
                             <td class="text-center"><span class="fa fa-user fa-lg"></span></td>
-                            {% endif %}
                             <td class="text-center">{{jogador}}</td>
                             {% if jogador.apelido %}
                             <td class="text-center">{{jogador.apelido}}</td>

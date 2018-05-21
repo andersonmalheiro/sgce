@@ -87,7 +87,7 @@
         <div class="col-lg-7 mb-9">
           <a href="{% url 'post' pk=post.pk %}"><h3 class="h3-responsive black-text">{{post.titulo}}</h3></a>
           <p class="my-4">
-            {{ post.conteudo | truncatechars:150 | safe }}
+            {{ post.conteudo | truncatechars:150 }}
             <small><a href="{% url 'post' pk=post.pk %}">Continuar lendo</a></small>
           </p>
         </div>

@@ -77,7 +77,7 @@
         <!--Imagem do post-->
         <div class="col-lg-5 mb-3">
           <div class="view overlay hm-white-light z-depth-1-half">
-            <img src="{{post.imagem.url}}" class="img-fluid" alt="">
+            <a href="{% url 'post' pk=post.pk %}"><img src="{{post.imagem.url}}" class="img-fluid" alt=""></a>
             <div class="mask waves-effect waves-light"></div>
           </div>
         </div>
@@ -86,10 +86,8 @@
         <!--Resumo-->
         <div class="col-lg-7 mb-9">
           <a href="{% url 'post' pk=post.pk %}"><h3 class="h3-responsive black-text">{{post.titulo}}</h3></a>
-          <p class="my-4">
-            {{ post.conteudo | truncatechars:150 }}
-            <small><a href="{% url 'post' pk=post.pk %}">Continuar lendo</a></small>
-          </p>
+          
+          <a href="{% url 'post' pk=post.pk %}" class="btn btn-primary">Ver noticia completa</a>
         </div>
         <!--/.Resumo-->
       </div>

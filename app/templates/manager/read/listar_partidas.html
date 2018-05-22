@@ -34,13 +34,19 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <th>Partida</th>
-                        <th>Opções</th>
+                        <tr>
+                            <th>Partida</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Opções</th>
+                        </tr>                        
                     </thead>
                     <tbody>
                         {% for partida in partidas %}
                         <tr>
                             <td>{{partida}}</td>
+                            <td>{{partida.data|date:"d/m"}}</td>
+                            <td>{{partida.hora}}</td>
                             <td>
                                 <a href="{% url 'partida_remove' pk=partida.pk%}">
                                     <span class="fa fa-trash fa-lg red-text"></span>

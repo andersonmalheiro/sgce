@@ -92,9 +92,10 @@ Campeonato Milagrense - {{equipe.nome}}
             </div>
             {% if partida %}
             <div class="table-responsive">
-                <table class="table">
+                <table class="table">                    
                     {% for p in partida %}
                     <tr>
+                        <td>{{p.data|date:"d/m"}}</td>
                         <td class="text-center">
                             {{p.mandante}}
                         </td>

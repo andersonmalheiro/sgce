@@ -32,7 +32,7 @@ Campeonato Milagrense - {{equipe.nome}}
 <hr>
 
 <div class="row d-flex">
-    <div class="col-xl-7 col-lg-7 mb-3">
+    <div class="col-xl-8 col-lg-8 mb-3">
         <div class="card">
             <div class="card-header blue darken-4 white-text">
                 Elenco
@@ -85,31 +85,47 @@ Campeonato Milagrense - {{equipe.nome}}
             {% endif %}
         </div>
     </div>
-    <div class="col-xl-5 col-lg-5 mb-5">
+    <div class="col-xl-4 col-lg-4 mb-5">
         <div class="card">
             <div class="card-header text-center blue darken-4 white-text">
                 Partidas
             </div>
             {% if partida %}
             <div class="table-responsive">
-                <table class="table">                    
+                <table class="table table-striped">                    
                     {% for p in partida %}
                     <tr>
-                        <td>{{p.data|date:"d/m"}}</td>
-                        <td class="text-center">
-                            {{p.mandante}}
+                        <td class="text-center" colspan="5">
+                            <strong>{{p.data|date:"d/m"}}</strong> - {{p.mandante}} vs {{p.visitante}}<br>
+                            <a href="{% url 'partida' pk=p.pk %}">
+                                <span class="fa fa-eye"></span> Lance a lance...
+                            </a>
                         </td>
+                    </tr>
+                    <tr>
+                        {% if p.mandante.emblema %}
+                            <td class="text-center">
+                                <img src="{{p.mandante.emblema.url}}" style="height: 20px; width: 20px;">
+                            </td>
+                            {% else %}
+                            <td class="text-center">
+                                <span class="fa fa-shield fa-lg"></span>
+                            </td>
+                        {% endif %}
+                        
                         <td class="text-center">{{p.gols_mandante}}</td>
                         <td class="text-center"><strong>x</strong></td>
                         <td class="text-center">{{p.gols_visitante}}</td>
-                        <td class="text-center">
-                            {{p.visitante}}
-                        </td>
-                        <td class="text-center">
-                            <a href="{% url 'partida' pk=p.pk %}" class="btn btn-sm blue darken-4">
-                                <span class="fa fa-eye"></span>
-                            </a>
-                        </td>
+                                          
+                        {% if p.visitante.emblema %}
+                            <td class="text-center">
+                                <img src="{{p.visitante.emblema.url}}" style="height: 20px; width: 20px;">
+                            </td>
+                            {% else %}
+                            <td class="text-center">
+                                <span class="fa fa-shield fa-lg"></span>
+                            </td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </table>

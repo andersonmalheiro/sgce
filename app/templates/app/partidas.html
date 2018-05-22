@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+Partidas - Campeonato Milagrense
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        {% for campeonato in camps %}
+        <div class="row mb-2">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header blue darken-4 white-text" data-toggle="collapse" href="#{{campeonato.pk}}" style="cursor: pointer;">
+                        <h3 class="h3-responsive">
+                            {{campeonato.nome}}
+                            <span class="fa fa-angle-down fa-lg pull-right"></span>
+                        </h3>                        
+                    </div>
+                    <div class="collapse show" id="{{campeonato.pk}}">
+                        <div class="card-body">
+                            <div class="list-group">
+                                {% for partida in partidas %}                                
+                                    {% if partida.campeonato == campeonato.pk %}
+                                    <a href="{% url 'partida' pk=partida.pk %}" class="list-group-item list-group-item-action">                                                                            
+                                        <div class="text-center">
+                                            <small>{{partida.data |date:"d, F"}} às {{partida.hora}} hrs</small>
+                                        </div>                                        
+                                        <div class="text-center">
+                                            <strong>{{partida.mandante}}</strong> 
+                                            <span>x</span>
+                                            <strong>{{partida.visitante}}</strong>
+                                        </div>                                        
+                                    </a>
+                                    {% endif %}
+                                {% endfor %}                                
+                            </div>
+                  
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

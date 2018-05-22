@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^noticias/$', noticias, name='noticias'),
     url(r'^equipe/(?P<pk>[0-9]+)/$', equipe, name='equipe'),
     url(r'^partida/(?P<pk>[0-9]+)/$', partida, name='partida'),
+    url(r'^partidas/$', partidas, name='partidas'),
 
 
     #MANAGER

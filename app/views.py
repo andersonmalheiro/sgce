@@ -108,6 +108,16 @@ def noticias(request):
 
     return render(request, 'app/noticias.html', {'posts': posts, 'camps': camps})
 
+def partidas(request):
+    camps = Campeonato.objects.all().order_by('nome')
+    partidas = Partida.objects.all().order_by('pk')
+    context = {
+        'camps':camps,
+        'partidas':partidas
+    }
+
+    return render(request, 'app/partidas.html', context)
+
 def partida(request, pk):
     camps = Campeonato.objects.all().order_by('nome')
     partida = get_object_or_404(Partida, pk=pk)

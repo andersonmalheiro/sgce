@@ -438,10 +438,11 @@ def create_partida(request, pk):
             mandante = get_object_or_404(Equipe, pk=request.POST['mandante'])
             visitante = get_object_or_404(Equipe, pk=request.POST['visitante'])
             # grupo = get_object_or_404(Grupo, pk=request.POST['grupo'])
-            rodada = request.POST['rodada']
+            # rodada = request.POST['rodada']
+            fase = request.POST['fase']
             campeonato = request.POST['campeonato']
             data = request.POST['data']
-            partida = Partida(mandante=mandante, visitante=visitante, rodada=rodada, campeonato=campeonato, data=data)
+            partida = Partida(mandante=mandante, visitante=visitante, fase=fase, campeonato=campeonato, data=data)
             partida.save()
             return redirect('list_partida', pk=campeonato)
     context = {

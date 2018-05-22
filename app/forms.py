@@ -42,7 +42,7 @@ class PostForm(ModelForm):
 class CreatePartida(ModelForm):
     class Meta:
         model = Partida
-        fields = ['mandante', 'visitante', 'rodada', 'campeonato', 'data']
+        fields = ['mandante', 'visitante', 'campeonato', 'data']
 
 
 class UpdatePartida(ModelForm):

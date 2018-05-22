@@ -87,7 +87,7 @@
         <div class="col-lg-7 mb-9">
           <a href="{% url 'post' pk=post.pk %}"><h3 class="h3-responsive black-text">{{post.titulo}}</h3></a>
           
-          <a href="{% url 'post' pk=post.pk %}" class="btn btn-blue-grey">Ver noticia completa</a>
+          <a href="{% url 'post' pk=post.pk %}" class="btn btn-sm btn-blue-grey">Ver noticia completa</a>
         </div>
         <!--/.Resumo-->
       </div>
@@ -153,23 +153,29 @@
                                         </thead>
                                         <tbody>
                                           {% for e in g.times %}                                                        
-                                            <tr>
+                                            <tr>                                              
                                                 <td></td>
                                                 {% if e.emblema %}
                                                 <td>
-                                                    <img src="{{e.emblema.url}}" alt="" style="height: 20px; width: 20px;">
+                                                  <a href="{% url 'equipe' pk=e.pk %}">
+                                                      <img src="{{e.emblema.url}}" alt="" style="height: 20px; width: 20px;">
+                                                  </a>
                                                 </td>
                                                 {% else %}
                                                 <td>
+                                                  <a href="{% url 'equipe' pk=e.pk %}">
                                                     <span class="fa fa-shield fa-lg"></span>
+                                                  </a>
                                                 </td>
                                                 {% endif %}
                                                 <td>
-                                                    {{e.nome}}
+                                                    <a href="{% url 'equipe' pk=e.pk %}">
+                                                      {{e.nome}}
+                                                    </a>
                                                 </td>
                                                 <td>
                                                     {{e.pontos}}
-                                                </td>
+                                                </td>                                                
                                             </tr>                                          
                                           {% endfor %}
                                         </tbody>

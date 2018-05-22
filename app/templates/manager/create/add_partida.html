@@ -28,22 +28,19 @@
                                 <option value="{{e.pk}}">{{e}}</option>
                                 {% endfor %}
                             </select>
-                            <!-- 
+                            
                             <hr>
-                            <label><strong>Grupo da partida</strong></label>
+                            <label><strong>Fase</strong></label>
                             <br>
-                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="grupo" name="grupo" required>
-                                <option value="">Selecione o grupo...</option>                                                                
-                                {% for g in grupos %}
-                                <option value="{{g.pk}}">{{g}}</option>
-                                {% endfor %}                                                                                                    
-                            </select>
-                            -->
-                            <hr>
-                            <div class="md-form">
-                                <label for="rodada"><strong>Rodada</strong></label>
-                                <input type="number" name="rodada" id="rodada" class="form-control" required min="0">
-                            </div>                            
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="fase" name="fase" required>
+                                <option value="">Selecione a fase...</option>
+                                <option value="G">Fase de grupos</option>
+                                <option value="O">Oitavas</option>
+                                <option value="Q">Quartas</option>
+                                <option value="S">Semifinais</option>
+                                <option value="F">Final</option>                                
+                            </select>                            
+                            <hr>                            
                             <input type="hidden" name="campeonato" value="{{pk}}">
                             <hr>
                             <div class="form-group">

@@ -107,9 +107,17 @@ class Jogador(models.Model):
 
 
 class Partida(models.Model):
+    FASE = (
+        ('G', 'Grupos'),
+        ('O','Oitavas'),
+        ('Q','Quartas'),
+        ('S', 'Semi-final'),
+        ('F', 'Final')
+    )
+
     mandante = models.ForeignKey(Equipe, verbose_name='Mandante', related_name='mandante')
     visitante = models.ForeignKey(Equipe, verbose_name='Visitante', related_name='visitante')
-    rodada = models.PositiveIntegerField('Rodada')
+    rodada = models.PositiveIntegerField('Rodada', null=True, blank=True)
     # grupo = models.ForeignKey(Grupo, verbose_name='Grupo')
     campeonato = models.PositiveIntegerField('Campeonato', default=None)
     gols_mandante = models.PositiveIntegerField('Gols mandante', default=0)
@@ -118,6 +126,8 @@ class Partida(models.Model):
     total_cart_vermelho = models.PositiveIntegerField('Cartões vermelhos', default=0)
     data = models.DateTimeField('Data', null=True, blank=True)
     finalizada = models.BooleanField(default=False)
+    
+    fase = models.CharField('Fase', max_length=1, choices=FASE, default='G')
 
     def __str__(self):
         return '%s x %s' % (self.mandante, self.visitante)

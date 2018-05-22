@@ -42,10 +42,20 @@
                             </select>                            
                             <hr>                            
                             <input type="hidden" name="campeonato" value="{{pk}}">
-                            <hr>
-                            <div class="form-group">
-                                <label for="data"><strong>Data da partida</strong></label>
-                                <input type="date" name="data" id="data" class="form-control" required>
+                            
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="data"><strong>Data da partida</strong></label>
+                                        <input type="date" name="data" id="data" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="hora"><strong>Hora da partida</strong></label>
+                                        <input type="text" name="hora" id="hora" placeholder="--:--" class="form-control" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row justify-content-center">
                                 <button type="submit" class="btn btn-elegant text-center">Cadastrar</button>

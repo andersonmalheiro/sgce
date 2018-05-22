@@ -40,7 +40,7 @@ class TimeAdmin(admin.ModelAdmin):
 
 class PartidaAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['data', 'rodada', 'mandante','gols_mandante', 'visitante','gols_visitante', 'finalizada']})        
+        (None, {'fields': ['data', 'hora', 'rodada', 'mandante','gols_mandante', 'visitante','gols_visitante', 'finalizada']})        
     ]    
     
     list_filter = ['mandante', 'visitante', 'campeonato']

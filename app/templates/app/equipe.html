@@ -96,7 +96,7 @@ Campeonato Milagrense - {{equipe.nome}}
                     {% for p in partida %}
                     <tr>
                         <td class="text-center" colspan="5">
-                            <strong>{{p.data|date:"d/m"}}</strong> - {{p.mandante}} vs {{p.visitante}}<br>
+                            <strong>{{p.data|date:"d/m"}} - {{p.hora}}</strong> - {{p.mandante}} vs {{p.visitante}}<br>
                             <a href="{% url 'partida' pk=p.pk %}">
                                 <span class="fa fa-eye"></span> Lance a lance...
                             </a>

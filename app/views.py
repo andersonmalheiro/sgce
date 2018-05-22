@@ -442,7 +442,8 @@ def create_partida(request, pk):
             fase = request.POST['fase']
             campeonato = request.POST['campeonato']
             data = request.POST['data']
-            partida = Partida(mandante=mandante, visitante=visitante, fase=fase, campeonato=campeonato, data=data)
+            hora = request.POST['hora']
+            partida = Partida(mandante=mandante, visitante=visitante, fase=fase, campeonato=campeonato, data=data, hora=hora)
             partida.save()
             return redirect('list_partida', pk=campeonato)
     context = {

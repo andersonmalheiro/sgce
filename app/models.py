@@ -125,6 +125,7 @@ class Partida(models.Model):
     total_cart_amarelo = models.PositiveIntegerField('Cartões amarelos', default=0)
     total_cart_vermelho = models.PositiveIntegerField('Cartões vermelhos', default=0)
     data = models.DateTimeField('Data', null=True, blank=True)
+    hora = models.CharField('Hora', default="--:--", max_length=5, null=True, blank=True)
     finalizada = models.BooleanField(default=False)
     
     fase = models.CharField('Fase', max_length=1, choices=FASE, default='G')

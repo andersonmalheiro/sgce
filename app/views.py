@@ -61,7 +61,7 @@ def index(request):
     return render(request, 'app/inicio.html', context)
 
 def tabela(request, pk):
-    camps = Campeonato.objects.all()
+    camps = Campeonato.objects.all().order_by('nome')
     camp = get_object_or_404(Campeonato, pk=pk)
     jogadores = Jogador.objects.filter(campeonato = camp.pk).filter(total_gols__gt = 0).order_by('-total_gols')[:5]
         
@@ -86,13 +86,13 @@ def tabela(request, pk):
     return render(request, 'app/tabela.html', context)
 
 def post(request, pk):
-    champs = Campeonato.objects.all()
+    champs = Campeonato.objects.all().order_by('nome')
     post = get_object_or_404(Post, pk=pk)
 
     return render(request, 'app/post.html', {'post': post, 'camps':champs})
 
 def noticias(request):
-    camps = Campeonato.objects.all()
+    camps = Campeonato.objects.all().order_by('nome')
     post_list = Post.objects.all().order_by('-created_date')
     paginator = Paginator(post_list, 5) # Show 5 contacts per page
 
@@ -109,7 +109,7 @@ def noticias(request):
     return render(request, 'app/noticias.html', {'posts': posts, 'camps': camps})
 
 def partida(request, pk):
-    camps = Campeonato.objects.all()
+    camps = Campeonato.objects.all().order_by('nome')
     partida = get_object_or_404(Partida, pk=pk)
     lances = Lance.objects.filter(partida=partida).order_by('pk')
     #lances_mandante = Lance.objects.filter(partida=partida, equipe=partida.mandante)
@@ -123,7 +123,7 @@ def partida(request, pk):
     return render(request, 'app/partida.html', context)
 
 def equipe(request, pk):
-    camps = Campeonato.objects.all()
+    camps = Campeonato.objects.all().order_by('nome')
     time = get_object_or_404(Equipe, pk=pk)
     tecnico = get_object_or_404(Tecnico, equipe=pk)
     jogadores = Jogador.objects.filter(equipe = pk).order_by('camisa')

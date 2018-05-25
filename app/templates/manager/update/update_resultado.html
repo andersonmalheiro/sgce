@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center mt-4 mb-4">
+        <div class="row justify-content-center mt-4 mb-1">
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body mt-2">
@@ -64,6 +64,11 @@
                     </div>                    
                 </div>                
             </div>            
+        </div>
+        <div class="row justify-content-center">
+            <div class="text-center">
+                <a href="#" data-toggle="modal" data-target="#confirmaFinaliza" class="btn btn-sm red">Finalizar partida</a>
+            </div>
         </div>
         <div class="row">            
             <div class="col-lg-6 mb-3">
@@ -135,6 +140,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="confirmaFinaliza" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-success" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead">Finalizar partida</p>
+    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+    
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p>Deseja realmente finalizar essa partida?</p>
+                    </div>
+                </div>
+    
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">                
+                    <a class="btn btn-outline-red waves-effect" data-dismiss="modal">Cancelar</a>
+                    <form method="post">
+                        <input type="hidden" name="finaliza" value="">
+                        <button type="submit" class="btn red">Finalizar</button>
+                    </form>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
 {% include 'manager/update/modalLance.html' %}
 {% include 'manager/update/modal_success.html' %}
 {% include 'manager/update/modal_error.html' %}

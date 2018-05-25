@@ -509,6 +509,12 @@ def partida_remove(request, pk):
 @login_required(login_url='/manager/login/')
 def update_resultado(request, pk):    
     partida = get_object_or_404(Partida, pk=pk)
+    if request.method == 'POST':
+        if 'finaliza' in request.POST:
+            partida.finalizada = True
+            partida.save()
+            return redirect('list_partida', pk=partida.campeonato)
+
     lances_mandante = Lance.objects.filter(partida=partida, equipe=partida.mandante)
     lances_visitante = Lance.objects.filter(partida=partida, equipe=partida.visitante)
     jogadores = Jogador.objects.filter(Q(equipe =partida.mandante) | Q(equipe = partida.visitante))    

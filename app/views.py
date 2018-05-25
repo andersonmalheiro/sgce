@@ -158,6 +158,13 @@ def equipe(request, pk):
         }
     return render(request, 'app/equipe.html', context)
 
+def aplicativo(request):
+    camps = Campeonato.objects.all().order_by('nome')
+    return render(request, 'app/aplicativo.html', {'camps': camps})
+
+# Admin
+######################################################################
+
 @login_required(redirect_field_name='next',login_url='/manager/login/')
 def manager(request):    
     return render(request, 'manager/home.html', {})

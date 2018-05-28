@@ -44,7 +44,7 @@ class Equipe(models.Model):
     derrotas = models.PositiveIntegerField('D', default=0)
     gols_marcados = models.PositiveIntegerField('GP', default=0)
     gols_sofridos = models.PositiveIntegerField('GC', default=0)
-    saldo_gols = models.PositiveIntegerField('SG', default=0)
+    saldo_gols = models.IntegerField('SG', default=0)
     grupo = models.ForeignKey(Grupo, verbose_name='Grupo', null=True, blank=True)
     campeonato = models.PositiveIntegerField('Campeonato', default=0)
     emblema = models.ImageField('Emblema', upload_to='emblemas/', null=True, blank=True)
@@ -140,11 +140,15 @@ class Partida(models.Model):
                 self.visitante.derrotas += 1
                 self.mandante.gols_marcados += self.gols_mandante
                 self.mandante.gols_sofridos += self.gols_visitante
+                self.visitante.gols_marcados += self.gols_visitante
+                self.visitante.gols_sofridos += self.gols_mandante
             elif self.gols_mandante < self.gols_visitante:            
                 self.visitante.vitorias += 1
                 self.mandante.derrotas += 1
                 self.visitante.gols_marcados += self.gols_visitante
                 self.visitante.gols_sofridos += self.gols_mandante
+                self.mandante.gols_marcados += self.gols_mandante
+                self.mandante.gols_sofridos += self.gols_visitante
             else:
                 self.visitante.empates += 1
                 self.mandante.empates += 1

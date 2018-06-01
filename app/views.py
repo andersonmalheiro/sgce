@@ -48,7 +48,7 @@ def index(request):
         grupos = []
         sorteado = False
     
-    posts = Post.objects.all().order_by('-created_date')[:5]
+    posts = Post.objects.all().order_by('-created_date')[2:5]
     posts2 = Post.objects.all( ).order_by('-created_date')[:2]
     
     context={

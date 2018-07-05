@@ -9,33 +9,59 @@ Partidas - Campeonato Milagrense
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-10">
-        {% for campeonato in camps %}
+        {% for c in campeonatos %}
         <div class="row mb-2">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header blue darken-4 white-text" data-toggle="collapse" href="#{{campeonato.pk}}" style="cursor: pointer;">
+                    <div class="card-header blue darken-4 white-text" data-toggle="collapse" href="#{{c.pk}}" style="cursor: pointer;">
                         <h3 class="h3-responsive">
-                            {{campeonato.nome}}
+                            {{c}}
                             <span class="fa fa-angle-down fa-lg pull-right"></span>
                         </h3>                        
                     </div>
-                    <div class="collapse show" id="{{campeonato.pk}}">
+                    <div class="collapse show" id="{{c.pk}}">
                         <div class="card-body">
+                            <div class="text-center mb-3">
+                                Legenda:                                
+                                <span class="ml-1 fa fa-check green-text mr-1"></span>Finalizada
+                                <span class="ml-2">|</span>
+                                <span class="ml-2 fa fa-spinner orange-text mr-1"></span>Pendente
+                            </div>
                             <div class="list-group">
-                                {% for partida in partidas %}                                
-                                    {% if partida.campeonato == campeonato.pk %}
-                                    <a href="{% url 'partida' pk=partida.pk %}" class="list-group-item list-group-item-action">                                                                            
+                                {% for fase in c.fases %}
+                                {% if fase.partidas %}
+                                <div class="list-group-item list-group-item-action grey lighten-2">
+                                    <div class="text-center">{{fase.nome}}</div>
+                                </div>
+                                {% for partida in fase.partidas %}                                    
+                                    <a href="{% url 'partida' pk=partida.pk %}" class="list-group-item list-group-item-action">                                    
                                         <div class="text-center">
+                                            {% if partida.finalizada %}
+                                            <span class="fa fa-check green-text"></span>
+                                            <br>
+                                            {% else %}                                            
+                                            <span class="fa fa-spinner orange-text"></span>
+                                            <br>
+                                            {% endif %}
                                             <small>{{partida.data |date:"d, F"}} às {{partida.hora}} hrs</small>
                                         </div>                                        
                                         <div class="text-center">
-                                            <strong>{{partida.mandante}}</strong> 
+                                            {% if partida.finalizada %}
+                                            <strong class="mr-3">{{partida.mandante}}</strong>
+                                            <span style="font-weight: bold;font-size: 18px;">{{partida.gols_mandante}}</span>
                                             <span>x</span>
+                                            <span style="font-weight: bold; font-size: 18px;">{{partida.gols_visitante}}</span>
+                                            <strong class="ml-3">{{partida.visitante}}</strong>
+                                            {% else %}
+                                            <strong>{{partida.mandante}}</strong>                                            
+                                            <span>x</span>                                            
                                             <strong>{{partida.visitante}}</strong>
+                                            {% endif %}
                                         </div>                                        
-                                    </a>
-                                    {% endif %}
-                                {% endfor %}                                
+                                    </a>                                                                    
+                                {% endfor %} 
+                                {% endif %}  
+                                {% endfor %} 
                             </div>
                   
                         </div>

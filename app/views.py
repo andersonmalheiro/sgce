@@ -27,6 +27,10 @@ class Group(object):
         self.pk = pk
 
 
+class PartidaList(object):
+    def __init__(self, campeonatos):
+        self.campeonatos = campeonatos
+
 # Create your views here.
 
 def index(request):
@@ -108,20 +112,54 @@ def noticias(request):
 
     return render(request, 'app/noticias.html', {'posts': posts, 'camps': camps})
 
+class CampFase(object):
+    def __init__(self, nome, pk, fases):
+        self.nome = nome
+        self.pk = pk
+        self.fases = fases
+    
+    def __str__(self):
+        return self.nome
+
+class Fase(object):
+    def __init__(self, nome, partidas):
+        self.nome = nome
+        self.partidas = partidas
+
 def partidas(request):
     camps = Campeonato.objects.all().order_by('nome')
-    partidas = Partida.objects.all().order_by('pk')
+    campeonatos = []    
+    c_fases = []
+    fases = {
+        'G': 'Fase de Grupos',
+        'O': 'Oitavas de Final',
+        'Q': 'Quartas de Final',
+        'S': 'Semifinais',
+        'F': 'Final'
+    }
+    f_partidas = []
+    for c in camps:
+        partidas = Partida.objects.filter(campeonato = c.pk).order_by('pk')
+        for f in fases:
+            tmp = partidas.filter(fase = f)
+            c_fases.append(Fase(fases[f], tmp))
+                
+        campeonatos.append(CampFase(c.nome, c.pk, c_fases))
+        c_fases = []
+    
+
     context = {
-        'camps':camps,
-        'partidas':partidas
+        'camps': camps,
+        'campeonatos': campeonatos
     }
 
     return render(request, 'app/partidas.html', context)
 
+
 def partida(request, pk):
     camps = Campeonato.objects.all().order_by('nome')
     partida = get_object_or_404(Partida, pk=pk)
-    lances = Lance.objects.filter(partida=partida).order_by('pk')
+    lances = Lance.objects.filter(partida=partida).order_by('tempo')
     #lances_mandante = Lance.objects.filter(partida=partida, equipe=partida.mandante)
     #lances_visitante = Lance.objects.filter(partida=partida, equipe=partida.visitante)
     context = {

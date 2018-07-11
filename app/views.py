@@ -71,6 +71,19 @@ def tabela(request, pk):
         
     grupos = []              
     sorteado = False
+    fases = {        
+        'O': 'Oitavas de Final',
+        'Q': 'Quartas de Final',
+        'S': 'Semifinais',
+        'F': 'Final'
+    }
+
+    eliminatorias = []
+
+    partidas = Partida.objects.filter(campeonato = pk).order_by('pk')
+    for f in fases:
+        tmp = partidas.filter(fase = f)
+        eliminatorias.append(Fase(fases[f], tmp))
     
     groups = Grupo.objects.filter(campeonato = camp).order_by('nome')
     for g in groups:
@@ -85,7 +98,8 @@ def tabela(request, pk):
     context ={                
         'camps': camps,
         'campeonato':campeonato,
-        'jogadores':jogadores
+        'jogadores':jogadores,
+        'partidas': eliminatorias
     }
     return render(request, 'app/tabela.html', context)
 

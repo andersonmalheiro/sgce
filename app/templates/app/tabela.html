@@ -72,6 +72,63 @@ Tabela - {{campeonato.nome}}
         {% endfor %}
     </div>    
 </div>
+<hr>
+{% if partidas|length > 0 %}
+<div class="row justify-content-center">
+    <div class="text-center">
+        <h2 class="h2 h2-responsive">Mata-mata</h2>
+    </div>
+</div>
+{% for fase in partidas %}
+{% if fase.partidas %}
+<div class="row justify-content-center">
+    <div class="text-center">
+        <h4 class="h4 h4-responsive">{{fase.nome}}</h4>        
+    </div>
+</div>
+<div class="row justify-content-center mb-3">    
+    {% for p in fase.partidas %}
+    <div class="col-lg-3 col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center justify-content-center">
+                    <div class="text-center">
+                        {% if p.finalizada %}                        
+                        <strong class="mr-3">{{p.mandante}}</strong>
+                        <span style="font-weight: bold;font-size: 18px;">{{p.gols_mandante}}</span>
+                        <span>x</span>
+                        <span style="font-weight: bold; font-size: 18px;">{{p.gols_visitante}}</span>
+                        <strong class="ml-3">{{p.visitante}}</strong>
+                        {% else %}
+                        <strong>{{p.mandante}}</strong>                                            
+                        <span>x</span>                                            
+                        <strong>{{p.visitante}}</strong> 
+                        {% endif %}                       
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="row justify-content-center">
+    <div class="text-center">
+        <h4 class="h4 h4-responsive">{{fase.nome}}</h4>        
+    </div>        
+</div>
+<div class="row justify-content-center">
+    <div class="text-center">
+        <p>Aguardando vencedores da fase anterior</p>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+<hr>
+{% endif %}
+
+
+
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card">

@@ -88,7 +88,7 @@ Tabela - {{campeonato.nome}}
 </div>
 <div class="row justify-content-center mb-3">    
     {% for p in fase.partidas %}
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-3 col-sm-4 mb-3">
         <div class="card">
             <div class="card-body">
                 <div class="row align-items-center justify-content-center">
@@ -110,17 +110,6 @@ Tabela - {{campeonato.nome}}
         </div>
     </div>
     {% endfor %}
-</div>
-{% else %}
-<div class="row justify-content-center">
-    <div class="text-center">
-        <h4 class="h4 h4-responsive">{{fase.nome}}</h4>        
-    </div>        
-</div>
-<div class="row justify-content-center">
-    <div class="text-center">
-        <p>Aguardando vencedores da fase anterior</p>
-    </div>
 </div>
 {% endif %}
 {% endfor %}

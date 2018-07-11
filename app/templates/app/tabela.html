@@ -107,6 +107,14 @@ Tabela - {{campeonato.nome}}
                     </div>  
                 </div>
             </div>
+            {% if p.finalizada %}
+            <div class="card-footer">
+                <a href="{% url 'partida' pk=p.pk %}">
+                    Veja como foi
+                    <span class="fa fa-arrow-right ml-2"></span>
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

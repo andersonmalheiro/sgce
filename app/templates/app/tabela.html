@@ -11,7 +11,61 @@ Tabela - {{campeonato.nome}}
 <div class="row justify-content-center align-items-center">    
     {% if campeonato.sorteado %}
     <div class="col-lg-12">        
-        <h1 class="h1-responsive mb-4">{{campeonato.nome}}</h1>        
+        <h1 class="text-center h1-responsive mb-4">{{campeonato.nome}}</h1>
+        
+        <hr>
+        {% if partidas %}
+        <div class="row justify-content-center">
+            <div class="text-center">
+                <h2 class="h2 h2-responsive">Mata-mata</h2>
+            </div>
+        </div>
+        {% for fase in partidas %}
+        {% if fase.partidas %}
+        <div class="row justify-content-center">
+            <div class="text-center">
+                <h4 class="h4 h4-responsive">{{fase.nome}}</h4>        
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center mb-3">    
+            {% for p in fase.partidas %}
+            <div class="col-lg-3 col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="text-center">
+                                {% if p.finalizada %}                        
+                                <strong class="mr-3">{{p.mandante}}</strong>
+                                <span style="font-weight: bold;font-size: 18px;">{{p.gols_mandante}}</span>
+                                <span>x</span>
+                                <span style="font-weight: bold; font-size: 18px;">{{p.gols_visitante}}</span>
+                                <strong class="ml-3">{{p.visitante}}</strong>
+                                {% else %}
+                                <strong>{{p.mandante}}</strong>                                            
+                                <span>x</span>                                            
+                                <strong>{{p.visitante}}</strong> 
+                                {% endif %}                       
+                            </div>  
+                        </div>
+                    </div>
+                    {% if p.finalizada %}
+                    <div class="card-footer">
+                        <a href="{% url 'partida' pk=p.pk %}">
+                            Veja como foi
+                            <span class="fa fa-arrow-right ml-2"></span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <hr>
+        {% endif %}
+        
+
         {% for grupo in campeonato.grupos %}
         <div class="card">
             {% if campeonato.formato == 'PC' %}
@@ -72,59 +126,6 @@ Tabela - {{campeonato.nome}}
         {% endfor %}
     </div>    
 </div>
-<hr>
-{% if partidas|length > 0 %}
-<div class="row justify-content-center">
-    <div class="text-center">
-        <h2 class="h2 h2-responsive">Mata-mata</h2>
-    </div>
-</div>
-{% for fase in partidas %}
-{% if fase.partidas %}
-<div class="row justify-content-center">
-    <div class="text-center">
-        <h4 class="h4 h4-responsive">{{fase.nome}}</h4>        
-    </div>
-</div>
-<div class="row justify-content-center mb-3">    
-    {% for p in fase.partidas %}
-    <div class="col-lg-3 col-sm-4 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="row align-items-center justify-content-center">
-                    <div class="text-center">
-                        {% if p.finalizada %}                        
-                        <strong class="mr-3">{{p.mandante}}</strong>
-                        <span style="font-weight: bold;font-size: 18px;">{{p.gols_mandante}}</span>
-                        <span>x</span>
-                        <span style="font-weight: bold; font-size: 18px;">{{p.gols_visitante}}</span>
-                        <strong class="ml-3">{{p.visitante}}</strong>
-                        {% else %}
-                        <strong>{{p.mandante}}</strong>                                            
-                        <span>x</span>                                            
-                        <strong>{{p.visitante}}</strong> 
-                        {% endif %}                       
-                    </div>  
-                </div>
-            </div>
-            {% if p.finalizada %}
-            <div class="card-footer">
-                <a href="{% url 'partida' pk=p.pk %}">
-                    Veja como foi
-                    <span class="fa fa-arrow-right ml-2"></span>
-                </a>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-{% endfor %}
-<hr>
-{% endif %}
-
-
 
 <div class="row justify-content-center">
     <div class="col-lg-12">

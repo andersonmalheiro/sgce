@@ -83,7 +83,8 @@ def tabela(request, pk):
     partidas = Partida.objects.filter(campeonato = pk).order_by('pk')
     for f in fases:
         tmp = partidas.filter(fase = f)
-        eliminatorias.append(Fase(fases[f], tmp))
+        if tmp:
+            eliminatorias.append(Fase(fases[f], tmp))
     
     groups = Grupo.objects.filter(campeonato = camp).order_by('nome')
     for g in groups:

@@ -45,7 +45,9 @@ Tabela - {{campeonato.nome}}
                                 {% else %}
                                 <strong>{{p.mandante}}</strong>                                            
                                 <span>x</span>                                            
-                                <strong>{{p.visitante}}</strong> 
+                                <strong>{{p.visitante}}</strong>
+                                <br>
+                                <span>{{p.data |date:"d, F"}} às {{p.hora}} hrs</span>
                                 {% endif %}                       
                             </div>  
                         </div>

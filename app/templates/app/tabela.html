@@ -40,6 +40,8 @@ Tabela - {{campeonato.nome}}
                                 <span>x</span>
                                 <span style="font-weight: bold; font-size: 18px;">{{p.gols_visitante}}</span>
                                 <strong class="ml-3">{{p.visitante}}</strong>
+                                <br>
+                                <span>{{p.data |date:"d, F"}} às {{p.hora}} hrs</span>
                                 {% else %}
                                 <strong>{{p.mandante}}</strong>                                            
                                 <span>x</span>                                            

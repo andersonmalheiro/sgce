@@ -25,7 +25,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = "xcbem_eift6_q8#mrfppz6ai0i4zzm=gwlzzimi#hx6qn_r@jz"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 # Application definition
 
@@ -140,15 +140,16 @@ LOGIN_REDIRECT_URL=reverse_lazy('manager')
 LOGIN_URL=reverse_lazy('login')
 LOGOUT_URL=reverse_lazy('logout')
 
-AWS_ACCESS_KEY_ID = 'AKIAIE3YFQEXK4HAKBWA'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_S3_REGION_NAME = 'sa-east-1'
-AWS_STORAGE_BUCKET_NAME = 'sistemaesporte'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-AWS_LOCATION = 'media'
+AWS_LOCATION = os.environ.get('AWS_LOCATION')
 
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 #STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

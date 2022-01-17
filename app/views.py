@@ -9,12 +9,19 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import UpdateView
 from logica.functions import *
 
-from app.dto.fase import FaseDTO, FaseCampeonatoDTO
+from app.dto.fase import FaseCampeonatoDTO, FaseDTO
 from app.dto.grupo import GrupoDTO
 from app.dto.torneio import TorneioDTO
+from app.model.campeonato import Campeonato
+from app.model.equipe import Equipe
+from app.model.grupo import Grupo
+from app.model.jogador import Jogador
+from app.model.lance import Lance
+from app.model.partida import Partida
+from app.model.post import Post
+from app.model.tecnico import Tecnico
 
 from .forms import *
-from .models import Campeonato, Equipe, Grupo, Jogador, Lance, Partida, Post, Tecnico
 
 # Create your views here.
 

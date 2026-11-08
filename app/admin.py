@@ -1,7 +1,16 @@
 from django.contrib import admin
-from .models import *
+
+from app.model.campeonato import Campeonato
+from app.model.equipe import Equipe
+from app.model.grupo import Grupo
+from app.model.jogador import Jogador
+from app.model.lance import Lance
+from app.model.partida import Partida
+from app.model.post import Post
+from app.model.tecnico import Tecnico
 
 # Register your models here.
+
 
 class GrupoInline(admin.StackedInline):
     model = Grupo
@@ -11,7 +20,7 @@ class GrupoInline(admin.StackedInline):
 
 class TimeInline(admin.StackedInline):
     model = Equipe
-    extra = 1    
+    extra = 1
 
 
 class TecnicoInline(admin.StackedInline):
@@ -30,25 +39,30 @@ class GrupoAdmin(admin.ModelAdmin):
 
 class TimeAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['nome', 'grupo','campeonato', 'vitorias', 'empates', 'derrotas', 'gols_marcados', 'gols_sofridos', 'emblema']}),     
+        (None, {'fields': ['nome', 'grupo', 'campeonato', 'vitorias',
+         'empates', 'derrotas', 'gols_marcados', 'gols_sofridos', 'emblema']}),
     ]
     inlines = [TecnicoInline]
-    list_display = ('nome', 'grupo', 'pontos', 'vitorias', 'empates', 'derrotas', 'saldo_gols')
+    list_display = ('nome', 'grupo', 'pontos', 'vitorias',
+                    'empates', 'derrotas', 'saldo_gols')
     list_filter = ['grupo']
     search_fields = ['nome']
 
 
 class PartidaAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['data', 'hora', 'rodada', 'mandante','gols_mandante', 'visitante','gols_visitante', 'finalizada']})        
-    ]    
-    
+        (None, {'fields': ['data', 'hora', 'rodada', 'mandante',
+         'gols_mandante', 'visitante', 'gols_visitante', 'finalizada']})
+    ]
+
     list_filter = ['mandante', 'visitante', 'campeonato']
+
 
 class PostAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['titulo', 'conteudo', 'imagem', 'created_date']})
     ]
+
 
 class JogadorAdmin(admin.ModelAdmin):
     list_display = ('nome', 'created_at')
